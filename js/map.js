@@ -21,9 +21,9 @@ async function main() {
 
 
   // Координаты центра карты
-  const CENTER_COORDINATES = [59.940895, 30.194407];
+  const CENTER_COORDINATES = [30.194407, 59.940895];
   // координаты метки на карте
-  const MARKER_COORDINATES = [59.940895, 30.194407];
+  const MARKER_COORDINATES = [30.194407, 59.940895];
 
   // Объект с параметрами центра и зумом карты
   const LOCATION = {
