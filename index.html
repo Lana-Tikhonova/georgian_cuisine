@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <meta name="description" content="georgian cuisine" />
+    <meta name="keywords" content="" />
+    <title>995</title>
+    <!-- шрифты -->
+    <link rel="preload" href="fonts/C059-Roman.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="fonts/C059-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="fonts/Montserrat-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="fonts/Montserrat-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+
+    <!-- <link rel="stylesheet" href="vendors/animate/aos.min.css" /> -->
+    <link rel="stylesheet" href="vendors/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="vendors/plyr/plyr.css" />
+    <link rel="stylesheet" href="css/common.css?1" />
+
+    <script src="https://api-maps.yandex.ru/3.0/?apikey=4c7e2233-a854-4da5-9483-7a55bd41dfc3&lang=ru_RU"
+        type="text/javascript"></script>
+    <script src="js/map.js?1" type="text/javascript"></script>
+</head>
+
+<body>
+    <div class='container'>
+        <div class='container_bg'>
+            <div></div>
+            <div>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <header class='header'></header>
+        <main>
+            <section class='home_section section'>
+                <img src="imgs/seashell.svg" alt="" class='img_bg img_bg_1'>
+                <img src="imgs/wine.svg" alt="" class='img_bg img_bg_2'>
+                <div class='bg' style="background-image: url(imgs/img_1.jpg);">
+                    <span></span>
+                </div>
+                <div class='home_block'>
+                    <div class='logo'><img src="imgs/logo.svg" alt=""></div>
+                    <div class='btns_wrapper'>
+                        <a href="#" target="_blank" class='btn'>Доставка</a>
+                        <a href="#" target="_blank" class='btn'>Резерв</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class='text_section section'>
+                <div class='bg bg_1' style="background-image: url(imgs/img_2.jpg);">
+                    <span></span>
+                </div>
+                <h2>На связи с Грузией</h2>
+                <div class="text">Ресторан грузинской кухни с современными интерьерными решениями, смелыми
+                    экспериментами, южным гостеприимством и вниманием к каждому гостю</div>
+            </section>
+
+            <section class='menu_section section'>
+                <img src="imgs/seashell_hand.svg" alt="" class='img_bg img_bg_1'>
+                <div class='bg bg_1' style="background-image: url(imgs/img_3.jpg);">
+                    <span></span>
+                </div>
+                <h2>Меню</h2>
+                <ul class='list_block'>
+                    <li><a href="#" target="_blank">Основное меню</a></li>
+                    <li><a href="#" target="_blank">Сезонное меню</a></li>
+                    <li><a href="#" target="_blank">Барная карта</a></li>
+                    <li><a href="#" target="_blank">Детское меню</a></li>
+                </ul>
+            </section>
+
+            <section class='gallery_section section'>
+                <h2>Галерея</h2>
+                <div class='slider_wrapper'>
+                    <div class="swiper slider">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <div class="item"><img src="imgs/gallery_img_1.jpg" alt=""></div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="item"><img src="imgs/img_1.jpg" alt=""></div>
+                            </div>
+                        </div>
+                        <div class='swiper-button-prev'></div>
+                        <div class='swiper-button-next'></div>
+                        <div class='swiper-pagination'></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class='gallery_section section'>
+                <h2>Видео</h2>
+                <div class='slider_wrapper'>
+                    <div class="swiper slider">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <div class="item"><img src="imgs/gallery_video_1.png" alt=""></div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="item"><img src="imgs/img_1.jpg" alt=""></div>
+                            </div>
+                        </div>
+                        <div class='swiper-button-prev'></div>
+                        <div class='swiper-button-next'></div>
+                        <div class='swiper-pagination'></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class='contacts_section section'>
+                <div class='bg bg_1' style="background-image: url(imgs/img_4.jpg);">
+                    <span></span>
+                </div>
+                <h2>Контакты</h2>
+                <div class='contacts_block'>
+                    <div class="contacts_list">
+                        <div class='item'>ЖК Golden City, Челюскина, 2</div>
+                        <a href="#" target="_blank" class='item'>
+                            <img src="imgs/whatsapp.svg" alt="">+7 (995) 598 29 29
+                        </a>
+                        <div class='item text'>Открыты каждый день<br> с 12:00 до 23:00 <br>(в&nbsp;пятницу
+                            и&nbsp;субботу до&nbsp;последнего гостя)
+                        </div>
+                    </div>
+                    <div class="map" id="map"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <footer class='footer'>
+        <div class="container">
+            <div class="text">“995”, грузинская кухня</div>
+        </div>
+    </footer>
+
+    <script src="vendors/jquery/jquery-3.5.1.min.js"></script>
+    <!-- <script src="vendors/animate/aos.min.js"></script> -->
+    <!-- <script src="vendors/plyr/plyr.polyfilled.js"></script> -->
+    <script src="vendors/swiper/swiper-bundle.min.js"></script>
+    <script src="js/common.js?1"></script>
+</body>
+
+</html>
