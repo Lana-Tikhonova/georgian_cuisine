@@ -532,6 +532,22 @@ ul {
   height: 345px;
 }
 
+.marker_wrapper {
+  width: auto;
+  margin-top: -85px;
+  margin-left: -52px;
+  display: flex;
+  align-items: center;
+  min-width: 58px;
+  position: relative;
+}
+
+.my-marker {
+  width: 58px;
+  height: auto;
+  flex: 0 0 auto;
+}
+
 .footer {
   padding-top: 60px;
   padding-bottom: 60px;
