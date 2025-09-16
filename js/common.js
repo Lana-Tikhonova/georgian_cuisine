@@ -146,6 +146,7 @@ $(document).ready(function () {
 
         if (h >= 740 && h <= 1000) {
             if (!siteSlider) {
+                console.log("Запускаем site_slider");
                 siteSlider = new Swiper(".site_slider", {
                     direction: "vertical",
                     slidesPerView: 1,
@@ -188,6 +189,7 @@ $(document).ready(function () {
                 });
             }
             if (!scrollSlider) {
+                console.log("Запускаем scrollSlider");
                 scrollSlider = new Swiper(".events_slider", {
                     direction: "vertical",
                     slidesPerView: "auto",
@@ -199,10 +201,12 @@ $(document).ready(function () {
             }
         } else {
             if (siteSlider) {
+                console.log("destroy siteSlider");
                 siteSlider.destroy(true, true);
                 siteSlider = null;
             }
             if (scrollSlider) {
+                console.log("destroy scrollSlider");
                 scrollSlider.destroy(true, true);
                 scrollSlider = null;
             }
