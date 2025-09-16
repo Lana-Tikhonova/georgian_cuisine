@@ -357,6 +357,24 @@ ul {
     display: none;
   }
 }
+@media (max-height: 739px) {
+  .site_slider-slide {
+    height: 100% !important;
+  }
+  .section {
+    max-height: 1000px;
+    min-height: 740px;
+  }
+}
+@media (min-height: 1001px) {
+  .site_slider-slide {
+    height: 100% !important;
+  }
+  .section {
+    max-height: 1000px;
+    min-height: 740px;
+  }
+}
 .bg {
   overflow: hidden;
   display: flex;
