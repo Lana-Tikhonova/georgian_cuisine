@@ -422,7 +422,6 @@ ul {
   display: flex;
   align-items: center;
   padding-top: 72px;
-  padding-bottom: 72px;
 }
 
 .menu:last-child {
@@ -1078,8 +1077,12 @@ ul {
   .events_section .bg span:after {
     height: 203px;
   }
+  .header {
+    pointer-events: none;
+  }
   .header_block {
-    padding: 40px 27px;
+    padding: 40px 27px 0;
+    pointer-events: none !important;
   }
   .home_section {
     padding-top: 32px;
@@ -1115,6 +1118,7 @@ ul {
     flex-direction: column;
     z-index: 100;
     background: linear-gradient(180deg, #2E0D03 0%, rgba(46, 13, 3, 0.9) 85.61%, rgba(46, 13, 3, 0) 144.75%);
+    pointer-events: all;
   }
   .mobile_menu.active {
     transform: translateY(0);
@@ -1160,6 +1164,7 @@ ul {
     position: relative;
     z-index: 120;
     display: flex;
+    pointer-events: all;
   }
   .menu_btn.active span {
     background: transparent;
@@ -1372,7 +1377,6 @@ ul {
   }
   .header_block {
     padding-top: 22px;
-    padding-bottom: 22px;
   }
   .home_section {
     overflow: hidden;
