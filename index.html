@@ -25,8 +25,33 @@
 </head>
 
 <body>
-    <div class='container'>
-        <div class='container_bg'>
+    <header class='header'>
+        <div class='container'>
+            <div class='header_block container_small'>
+                <div class="menu_btn"><span></span></div>
+                <div class='mobile_menu'>
+                    <div class='logo'><img src="imgs/logo.svg" alt=""></div>
+                    <nav class='menu header_menu'>
+                        <ul>
+                            <li><a href="#restaurant">Ресторан</a></li>
+                            <li><a href="#events">Акции и события</a></li>
+                            <li><a href="#menu">Меню</a></li>
+                            <li><a href="#gallery">Фото и видео</a></li>
+                            <li><a href="#contacts">Контакты</a></li>
+                        </ul>
+                    </nav>
+                    <nav class='menu'>
+                        <ul>
+                            <li><a href="#" target="_blank">Доставка</a></li>
+                            <li><a href="#" target="_blank">Резерв</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class='container_bg container_bg_mobile'>
             <div></div>
             <div>
                 <span></span>
@@ -35,107 +60,258 @@
                 <span></span>
             </div>
         </div>
-        <header class='header'></header>
-        <main>
-            <section class='home_section section'>
-                <img src="imgs/seashell.svg" alt="" class='img_bg img_bg_1'>
-                <img src="imgs/wine.svg" alt="" class='img_bg img_bg_2'>
-                <div class='bg' style="background-image: url(imgs/img_1.jpg);">
-                    <span></span>
-                </div>
-                <div class='home_block'>
-                    <div class='logo'><img src="imgs/logo.svg" alt=""></div>
-                    <div class='btns_wrapper'>
-                        <a href="#" target="_blank" class='btn'>Доставка</a>
-                        <a href="#" target="_blank" class='btn'>Резерв</a>
-                    </div>
-                </div>
-            </section>
-
-            <section class='text_section section'>
-                <div class='bg bg_1' style="background-image: url(imgs/img_2.jpg);">
-                    <span></span>
-                </div>
-                <h2>На связи с Грузией</h2>
-                <div class="text">Ресторан грузинской кухни с современными интерьерными решениями, смелыми
-                    экспериментами, южным гостеприимством и вниманием к каждому гостю</div>
-            </section>
-
-            <section class='menu_section section'>
-                <img src="imgs/seashell_hand.svg" alt="" class='img_bg img_bg_1'>
-                <div class='bg bg_1' style="background-image: url(imgs/img_3.jpg);">
-                    <span></span>
-                </div>
-                <h2>Меню</h2>
-                <ul class='list_block'>
-                    <li><a href="#" target="_blank">Основное меню</a></li>
-                    <li><a href="#" target="_blank">Сезонное меню</a></li>
-                    <li><a href="#" target="_blank">Барная карта</a></li>
-                    <li><a href="#" target="_blank">Детское меню</a></li>
-                </ul>
-            </section>
-
-            <section class='gallery_section section'>
-                <h2>Галерея</h2>
-                <div class='slider_wrapper'>
-                    <div class="swiper slider">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <div class="item"><img src="imgs/gallery_img_1.jpg" alt=""></div>
+        <div class='swiper site_slider'>
+            <div class='swiper-wrapper'>
+                <div class='swiper-slide'>
+                    <section class='home_section section'>
+                        <div class='bg' style="background-image: url(imgs/img_1.jpg);">
+                            <span></span>
+                        </div>
+                        <div class='container'>
+                            <div class='container_bg'>
+                                <div></div>
+                                <div>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
                             </div>
-                            <div class="swiper-slide">
-                                <div class="item"><img src="imgs/img_1.jpg" alt=""></div>
+                            <img src="imgs/seashell.svg" alt="" class='img_bg img_bg_1'>
+                            <img src="imgs/wine.svg" alt="" class='img_bg img_bg_2'>
+                            <div class='home_block'>
+                                <div class='logo'><img src="imgs/logo.svg" alt=""></div>
+                                <div class="btns_wrapper">
+                                    <a href="#" target="_blank" class="btn">Доставка</a>
+                                    <a href="#" target="_blank" class="btn">Резерв</a>
+                                </div>
                             </div>
                         </div>
-                        <div class='swiper-button-prev'></div>
-                        <div class='swiper-button-next'></div>
-                        <div class='swiper-pagination'></div>
-                    </div>
+                    </section>
                 </div>
-            </section>
 
-            <section class='gallery_section section'>
-                <h2>Видео</h2>
-                <div class='slider_wrapper'>
-                    <div class="swiper slider">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <div class="item"><img src="imgs/gallery_video_1.png" alt=""></div>
+                <div class='swiper-slide'>
+                    <section class='text_section section' id="restaurant">
+                        <div class='bg' style="background-image: url(imgs/img_2.jpg);">
+                            <span></span>
+                        </div>
+                        <div class='container'>
+                            <div class='container_bg'>
+                                <div></div>
+                                <div>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
                             </div>
-                            <div class="swiper-slide">
-                                <div class="item"><img src="imgs/img_1.jpg" alt=""></div>
+                            <div class='container_small'>
+                                <div class='text_block'>
+                                    <h2>На связи с Грузией</h2>
+                                    <div class="text">Ресторан грузинской кухни с современными интерьерными решениями,
+                                        смелыми
+                                        экспериментами, южным гостеприимством и вниманием к каждому гостю</div>
+                                </div>
                             </div>
                         </div>
-                        <div class='swiper-button-prev'></div>
-                        <div class='swiper-button-next'></div>
-                        <div class='swiper-pagination'></div>
-                    </div>
+                    </section>
                 </div>
-            </section>
 
-            <section class='contacts_section section'>
-                <div class='bg bg_1' style="background-image: url(imgs/img_4.jpg);">
-                    <span></span>
-                </div>
-                <h2>Контакты</h2>
-                <div class='contacts_block'>
-                    <div class="contacts_list">
-                        <div class='item'>ЖК Golden City, Челюскина, 2</div>
-                        <a href="#" target="_blank" class='item'>
-                            <img src="imgs/whatsapp.svg" alt="">+7 (995) 598 29 29
-                        </a>
-                        <div class='item text'>Открыты каждый день<br> с 12:00 до 23:00 <br>(в&nbsp;пятницу
-                            и&nbsp;субботу до&nbsp;последнего гостя)
+                <div class='swiper-slide'>
+                    <section class='events_section section' id="events">
+                        <div class='bg' style="background-image: url(imgs/img_5.jpg);">
+                            <span></span>
                         </div>
-                    </div>
-                    <div class="map" id="map"></div>
+                        <div class='container'>
+                            <div class='container_bg'>
+                                <div></div>
+                                <div>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </div>
+                            <div class='events_block container_small'>
+                                <div class='events_title'>
+                                    <h2>Акции <br>и события</h2>
+                                </div>
+                                <div class='events_list_wrapper'>
+                                    <div class='events_list'>
+                                        <div class='item'>
+                                            <h4>Скидка на день рождения 15%</h4>
+                                            <div class="text">действует в день рождения, 3 дня до и 3 дня после (можно
+                                                воспользоваться 1 раз)</div>
+                                        </div>
+                                        <div class='item'>
+                                            <h4>Скидка навынос на основное меню 10%</h4>
+                                            <div class="text">не распространяется на продукцию бара и специальные
+                                                предложения</div>
+                                        </div>
+                                        <div class='item'>
+                                            <h4>Обеденная скидка на основное меню 15%</h4>
+                                            <div class="text">пн-пт с 12:00 до 16:00</div>
+                                        </div>
+                                    </div>
+                                    <div class='btn btn_secondary events_btn'>Все акции и события</div>
+                                </div>
+                            </div>
+                            <div class='events_block_full'>
+                                <div class='events_back'>
+                                    <img src="imgs/arrow.svg" alt="">
+                                    Назад
+                                </div>
+                                <div class='events_list_wrapper'>
+                                    <h2>Акции <br>и события</h2>
+                                    <div class='events_list'>
+                                        <div class='item'>
+                                            <h4>Скидка на день рождения 15%</h4>
+                                            <div class="text">действует в день рождения, 3 дня до и 3 дня после (можно
+                                                воспользоваться 1 раз)</div>
+                                        </div>
+                                        <div class='item'>
+                                            <h4>Скидка навынос на основное меню 10%</h4>
+                                            <div class="text">не распространяется на продукцию бара и специальные
+                                                предложения</div>
+                                        </div>
+                                        <div class='item'>
+                                            <h4>Масленица</h4>
+                                            <div class="text">С 24 февраля по 2 марта будет действовать дополнительное
+                                                праздничное
+                                                меню.</div>
+                                            <div class="date">25.02.2025</div>
+                                        </div>
+                                        <div class='item'>
+                                            <h4>Обеденная скидка на основное меню 15%</h4>
+                                            <div class="text">пн-пт с 12:00 до 16:00</div>
+                                        </div>
+                                        <div class='item'>
+                                            <h4>Скидка на день рождения 15%</h4>
+                                            <div class="text">действует в день рождения, 3 дня до и 3 дня после (можно
+                                                воспользоваться 1 раз)</div>
+                                        </div>
+                                        <div class='item'>
+                                            <h4>Скидка навынос на основное меню 10%</h4>
+                                            <div class="text">не распространяется на продукцию бара и специальные
+                                                предложения</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
                 </div>
-            </section>
-        </main>
-    </div>
+
+                <div class='swiper-slide'>
+                    <section class='menu_section section' id="menu">
+                        <div class='bg' style="background-image: url(imgs/img_3.jpg);">
+                            <span></span>
+                        </div>
+                        <div class='container'>
+                            <div class='container_bg'>
+                                <div></div>
+                                <div>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </div>
+                            <img src="imgs/seashell_hand.svg" alt="" class='img_bg img_bg_1'>
+                            <div class='menu_block'>
+                                <h2>Меню</h2>
+                                <ul class='list_block'>
+                                    <li><a href="#" target="_blank">Основное меню</a></li>
+                                    <li><a href="#" target="_blank">Сезонное меню</a></li>
+                                    <li><a href="#" target="_blank">Барная карта</a></li>
+                                    <li><a href="#" target="_blank">Детское меню</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <div class='swiper-slide'>
+                    <section class='gallery_section section' id="gallery">
+                        <div class='container'>
+                            <div class='container_bg'>
+                                <div></div>
+                                <div>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </div>
+                            <div class='gallery_block'>
+                                <div class='gallery_title'>
+                                    <h2>Фото <br>и видео</h2>
+                                </div>
+                                <div class='slider_block'>
+                                    <div class="slider_center slider_wrapper">
+                                        <div class="slider">
+                                            <ul class="swiper-wrapper">
+                                                <li class="swiper-slide"><img src="imgs/gallery_img_1.jpg" alt=""></li>
+                                                <li class="swiper-slide"><img src="imgs/gallery_video_1.png" alt="">
+                                                </li>
+                                                <li class="swiper-slide"><img src="imgs/img_1.jpg" alt=""></li>
+                                                <li class="swiper-slide"><img src="imgs/img_2.jpg" alt=""></li>
+                                                <li class="swiper-slide"><img src="imgs/img_3.jpg" alt=""></li>
+                                                <li class="swiper-slide"><img src="imgs/img_4.jpg" alt=""></li>
+                                                <li class="swiper-slide"><img src="imgs/img_5.jpg" alt=""></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-pagination"></div>
+                                    <div class="swiper-button-prev"></div>
+                                    <div class="swiper-button-next"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <div class='swiper-slide'>
+                    <section class='contacts_section section' id="contacts">
+                        <div class='bg' style="background-image: url(imgs/img_4.jpg);">
+                            <span></span>
+                        </div>
+                        <div class='container'>
+                            <div class='container_bg'>
+                                <div></div>
+                                <div>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </div>
+                            <div class='contacts_block'>
+                                <div class="contacts_list">
+                                    <h2>Контакты</h2>
+
+                                    <div class='item'>ЖК Golden City, Челюскина, 2</div>
+                                    <a href="#" target="_blank" class='item'>
+                                        <img src="imgs/whatsapp.svg" alt="">+7 (995) 598 29 29
+                                    </a>
+                                    <div class='item text'>Открыты каждый день с 12:00 до 23:00 <br>(в&nbsp;пятницу
+                                        и&nbsp;субботу до&nbsp;последнего гостя)
+                                    </div>
+                                    <a href="#" target="_blank" class='social_item'>
+                                        <img src="imgs/vk.svg" alt="">
+                                    </a>
+                                </div>
+                                <div class="map" id="map"></div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
     <footer class='footer'>
         <div class="container">
-            <div class="text">“995”, грузинская кухня</div>
+            <div class="text">995 <br>грузинская кухня</div>
         </div>
     </footer>
 
