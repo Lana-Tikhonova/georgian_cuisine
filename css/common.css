@@ -353,6 +353,9 @@ ul {
   .site_slider-slide {
     height: 100%;
   }
+  .footer {
+    display: none;
+  }
 }
 .bg {
   overflow: hidden;

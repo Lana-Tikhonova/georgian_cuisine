@@ -1,5 +1,20 @@
 $(document).ready(function () {
 
+    // анимация
+    let offset;
+    if ($(window).width() > 576) {
+        offset = 100;
+    } else {
+        offset = 0;
+    }
+    AOS.init({
+        easing: 'ease-in-out',
+        delay: 100,
+        once: true,
+        duration: 700,
+        offset: offset,
+    });
+
     $('.header_menu a,[data-anchor]').on('click', function (e) {
         e.preventDefault();
         let href = $(this).attr("href");
@@ -47,21 +62,6 @@ $(document).ready(function () {
         $('.events_block_full').removeClass('active')
 
     });
-
-    // анимация
-    // let offset;
-    // if ($(window).width() > 576) {
-    //     offset = 100;
-    // } else {
-    //     offset = 0;
-    // }
-    // AOS.init({
-    //     easing: 'ease-in-out',
-    //     delay: 100,
-    //     once: true,
-    //     duration: 700,
-    //     offset: offset,
-    // });
 
 
     // добавляем метод прямо к инстансу
@@ -146,6 +146,21 @@ $(document).ready(function () {
                     wrapperClass: "site_slider-wrapper",
                     slideClass: "site_slider-slide",
                     nested: true,
+                    on: {
+                        slideChangeTransitionEnd: function () {
+                            // убираем анимации со всех
+                            document.querySelectorAll(".swiper-slide [data-aos]").forEach(el => {
+                                el.classList.remove("aos-animate");
+                            });
+
+                            // добавляем только в активном слайде
+                            this.slides[this.activeIndex]
+                                .querySelectorAll("[data-aos]")
+                                .forEach(el => {
+                                    el.classList.add("aos-animate");
+                                });
+                        },
+                    },
                 });
             }
         } else {
