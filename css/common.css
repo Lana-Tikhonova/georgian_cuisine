@@ -363,7 +363,7 @@ ul {
   }
   .section {
     max-height: 1000px;
-    min-height: 740px;
+    height: 740px;
   }
 }
 @media (min-height: 1001px) {
@@ -372,7 +372,7 @@ ul {
   }
   .section {
     max-height: 1000px;
-    min-height: 740px;
+    height: 740px;
   }
 }
 .bg {
@@ -911,8 +911,9 @@ ul {
   max-width: 490px;
 }
 .events_block_full .events_slider {
-  margin: 0;
+  margin: -100px 0;
   height: 100%;
+  padding: 100px 0;
 }
 .events_block_full .events_slider .swiper-slide {
   height: auto;
