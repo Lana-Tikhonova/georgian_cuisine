@@ -27,7 +27,7 @@ $(document).ready(function () {
         }, 1000);
     });
 
-    const section = $(".section");
+    const section = $(".site_slider-slide");
     const nav = $(".header_menu");
 
     $(window).on("scroll", () => {
@@ -148,6 +148,19 @@ $(document).ready(function () {
                     slideClass: "site_slider-slide",
                     nested: true,
                     on: {
+                        slideChange: function () {
+                            const activeSlide = this.slides[this.activeIndex];
+                            const thisId = activeSlide.getAttribute("id");
+
+                            // убираем active у всех
+                            $(".site_slider-slide").removeClass("active");
+                            $(".header_menu a").removeClass("active");
+                            console.log(activeSlide);
+
+                            // добавляем active к текущему слайду и пункту меню
+                            $(activeSlide).addClass("active");
+                            $(".header_menu a[href='#" + thisId + "']").addClass("active");
+                        },
                         slideChangeTransitionEnd: function () {
                             // убираем анимации со всех
                             document.querySelectorAll(".swiper-slide [data-aos]").forEach(el => {
