@@ -172,6 +172,14 @@ $(document).ready(function () {
                             // добавляем active к текущему слайду и пункту меню
                             $(activeSlide).addClass("active");
                             $(".header_menu a[href='#" + thisId + "']").addClass("active");
+
+                            // Останавливаем все видео, кроме активного
+                            players.forEach(player => {
+                                const slide = player.elements.container.closest(".site_slider-slide");
+                                if (!slide.classList.contains("active")) {
+                                    player.pause();
+                                }
+                            });
                         },
                         slideChangeTransitionEnd: function () {
                             // убираем анимации со всех
@@ -221,7 +229,25 @@ $(document).ready(function () {
     const players = Array.from(document.querySelectorAll('.player_video')).map(
         (p) =>
             new Plyr(p, {
+                controls: [
+                    'play-large',
+                    'play',
+                    'progress',
+                    'current-time',
+                    'mute',
+                    'volume',
+                    'settings',
+                    // 'share',     
+                    // 'fullscreen', 
+                ],
                 autoplay: false,
             })
     );
+
+    $('.player_video_bg_btn').on('click', function (e) {
+        for (let index = 0; index < players.length; index++) {
+            players[index].play();
+        }
+        $(this).parent().hide();
+    });
 });
