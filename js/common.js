@@ -142,6 +142,7 @@ $(document).ready(function () {
 
     function initSwiper() {
         const h = window.innerHeight;
+        console.log(window.innerHeight);
 
         if (h >= 740 && h <= 1000) {
             if (!siteSlider) {
@@ -165,7 +166,6 @@ $(document).ready(function () {
                             // убираем active у всех
                             $(".site_slider-slide").removeClass("active");
                             $(".header_menu a").removeClass("active");
-                            console.log(activeSlide);
 
                             // добавляем active к текущему слайду и пункту меню
                             $(activeSlide).addClass("active");
