@@ -18,13 +18,23 @@ $(document).ready(function () {
     $('.header_menu a,[data-anchor]').on('click', function (e) {
         e.preventDefault();
         let href = $(this).attr("href");
+
         $('.mobile_menu').removeClass('active')
         $('body').removeClass('locked')
         $('.menu_btn').removeClass('active')
 
-        $("html, body").animate({
-            scrollTop: $(href).offset().top
-        }, 1000);
+        // если активен swiper
+        if (siteSlider) {
+            const targetId = href.replace("#", "");
+            const targetIndex = $(".site_slider-slide").index($("#" + targetId));
+            if (targetIndex !== -1) {
+                siteSlider.slideTo(targetIndex);
+            }
+        } else {
+            $("html, body").animate({
+                scrollTop: $(href).offset().top
+            }, 1000);
+        }
     });
 
     const section = $(".site_slider-slide");

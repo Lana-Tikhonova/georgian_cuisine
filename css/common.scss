@@ -431,6 +431,11 @@ ul {
     }
 }
 
+.events_block_full .events_list {
+    overflow: auto;
+    scrollbar-width: none;
+}
+
 .bg {
     overflow: hidden;
     display: flex;
