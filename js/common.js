@@ -6,7 +6,6 @@ $(document).ready(function () {
         $('.mobile_menu').removeClass('active')
         $('body').removeClass('locked')
         $('.menu_btn').removeClass('active')
-        $('main').removeClass('menu_open');
 
         $("html, body").animate({
             scrollTop: $(href).offset().top
@@ -37,16 +36,15 @@ $(document).ready(function () {
         $(this).toggleClass('active');
         $('.mobile_menu').toggleClass('active');
         $('body').toggleClass('locked');
-        $('main').toggleClass('menu_open');
     });
 
     $('.events_btn').on('click', function (e) {
         $('.events_block').hide()
-        $('.events_block_full').show()
+        $('.events_block_full').addClass('active')
     });
     $('.events_back').on('click', function (e) {
         $('.events_block').show()
-        $('.events_block_full').hide()
+        $('.events_block_full').removeClass('active')
 
     });
 
@@ -129,25 +127,31 @@ $(document).ready(function () {
         }
     });
 
-    let swiper;
+    let siteSlider;
 
     function initSwiper() {
         const h = window.innerHeight;
 
-        if (h >= 660 && h <= 1000) {
-            if (!swiper) {
-                swiper = new Swiper(".site_slider", {
+        if (h >= 740 && h <= 1000) {
+            if (!siteSlider) {
+                siteSlider = new Swiper(".site_slider", {
                     direction: "vertical",
                     slidesPerView: 1,
                     spaceBetween: 0,
-                    mousewheel: true,
+                    // mousewheel: true,
+                    mousewheel: {
+                        releaseOnEdges: true,
+                    },
                     speed: 700,
+                    wrapperClass: "site_slider-wrapper",
+                    slideClass: "site_slider-slide",
+                    nested: true,
                 });
             }
         } else {
-            if (swiper) {
-                swiper.destroy(true, true);
-                swiper = null;
+            if (siteSlider) {
+                siteSlider.destroy(true, true);
+                siteSlider = null;
             }
         }
     }
@@ -155,6 +159,13 @@ $(document).ready(function () {
     initSwiper();
     window.addEventListener("resize", initSwiper);
 
+    var swiper = new Swiper(".events_slider", {
+        direction: "vertical",
+        slidesPerView: "auto",
+        freeMode: true,
+        mousewheel: true,
+        nested: true,
+    });
 
     // видео
     const players = Array.from(document.querySelectorAll('.player_video')).map(
