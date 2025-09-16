@@ -331,7 +331,7 @@ ul {
   display: block;
 }
 
-@media (min-height: 740px) and (max-height: 1000px) {
+@media (min-width: 768px) and (min-height: 740px) and (max-height: 1000px) {
   .site_slider {
     overflow: auto;
   }
@@ -357,20 +357,7 @@ ul {
     display: none;
   }
 }
-@media (max-height: 739px) {
-  .site_slider-slide {
-    height: 100% !important;
-  }
-  .section {
-    max-height: 1000px;
-    height: 740px;
-  }
-  .events_block_full .events_list {
-    overflow: auto;
-    scrollbar-width: none;
-  }
-}
-@media (min-height: 1001px) {
+@media (max-height: 739px), (min-height: 1001px), (max-width: 767px) {
   .site_slider-slide {
     height: 100% !important;
   }
