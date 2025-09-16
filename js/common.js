@@ -142,9 +142,10 @@ $(document).ready(function () {
 
     function initSwiper() {
         const h = window.innerHeight;
+        const w = window.innerWidth;
         console.log(window.innerHeight);
 
-        if (h >= 740 && h <= 1000) {
+        if (h >= 740 && h <= 1000 && w >= 768) {
             if (!siteSlider) {
                 console.log("Запускаем site_slider");
                 siteSlider = new Swiper(".site_slider", {
