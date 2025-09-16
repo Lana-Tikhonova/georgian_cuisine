@@ -128,6 +128,7 @@ $(document).ready(function () {
     });
 
     let siteSlider;
+    let scrollSlider;
 
     function initSwiper() {
         const h = window.innerHeight;
@@ -163,24 +164,30 @@ $(document).ready(function () {
                     },
                 });
             }
+            if (!scrollSlider) {
+                scrollSlider = new Swiper(".events_slider", {
+                    direction: "vertical",
+                    slidesPerView: "auto",
+                    freeMode: true,
+                    mousewheel: true,
+                    nested: true,
+                });
+
+            }
         } else {
             if (siteSlider) {
                 siteSlider.destroy(true, true);
                 siteSlider = null;
+            }
+            if (scrollSlider) {
+                scrollSlider.destroy(true, true);
+                scrollSlider = null;
             }
         }
     }
 
     initSwiper();
     window.addEventListener("resize", initSwiper);
-
-    var swiper = new Swiper(".events_slider", {
-        direction: "vertical",
-        slidesPerView: "auto",
-        freeMode: true,
-        mousewheel: true,
-        nested: true,
-    });
 
     // видео
     const players = Array.from(document.querySelectorAll('.player_video')).map(

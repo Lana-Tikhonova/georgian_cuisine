@@ -406,6 +406,11 @@ ul {
         max-height: 1000px;
         height: 740px;
     }
+
+    .events_block_full .events_list {
+        overflow: auto;
+        scrollbar-width: none;
+    }
 }
 
 
@@ -418,6 +423,11 @@ ul {
     .section {
         max-height: 1000px;
         height: 740px;
+    }
+
+    .events_block_full .events_list {
+        overflow: auto;
+        scrollbar-width: none;
     }
 }
 
@@ -1044,9 +1054,8 @@ ul {
     }
 
     .events_slider {
-        margin: -100px 0;
+        margin: 0;
         height: 100%;
-        padding: 100px 0;
 
         .swiper-slide {
             height: auto;

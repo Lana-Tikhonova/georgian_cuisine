@@ -365,6 +365,10 @@ ul {
     max-height: 1000px;
     height: 740px;
   }
+  .events_block_full .events_list {
+    overflow: auto;
+    scrollbar-width: none;
+  }
 }
 @media (min-height: 1001px) {
   .site_slider-slide {
@@ -373,6 +377,10 @@ ul {
   .section {
     max-height: 1000px;
     height: 740px;
+  }
+  .events_block_full .events_list {
+    overflow: auto;
+    scrollbar-width: none;
   }
 }
 .bg {
@@ -911,9 +919,8 @@ ul {
   max-width: 490px;
 }
 .events_block_full .events_slider {
-  margin: -100px 0;
+  margin: 0;
   height: 100%;
-  padding: 100px 0;
 }
 .events_block_full .events_slider .swiper-slide {
   height: auto;
