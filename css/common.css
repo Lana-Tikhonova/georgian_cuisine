@@ -856,7 +856,6 @@ ul {
   margin-left: -29px;
   display: flex;
   align-items: center;
-  min-width: 58px;
   position: relative;
 }
 
@@ -866,6 +865,15 @@ ul {
   flex: 0 0 auto;
 }
 
+@media screen and (max-width: 576px) {
+  .marker_wrapper {
+    margin-top: -50px;
+    margin-left: -16px;
+  }
+  .my-marker {
+    width: 34px;
+  }
+}
 .footer {
   padding-top: 47px;
   padding-bottom: 47px;

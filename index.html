@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="vendors/animate/aos.min.css" />
     <link rel="stylesheet" href="vendors/swiper/swiper-bundle.min.css" />
     <link rel="stylesheet" href="vendors/plyr/plyr.css" />
-    <link rel="stylesheet" href="css/common.css?8" />
+    <link rel="stylesheet" href="css/common.css?9" />
 
     <script src="https://api-maps.yandex.ru/3.0/?apikey=4c7e2233-a854-4da5-9483-7a55bd41dfc3&lang=ru_RU"
         type="text/javascript"></script>
@@ -64,7 +64,7 @@
             <div class='site_slider-wrapper'>
                 <div class='site_slider-slide'>
                     <section class='home_section section'>
-                        <div class='bg  lazyload' data-bg="imgs/img_1.jpg">
+                        <div class='bg' style="background-image: url(imgs/img_1.jpg);">
                             <span></span>
                         </div>
                         <div class='container'>
@@ -93,7 +93,7 @@
 
                 <div class='site_slider-slide' id="restaurant">
                     <section class='text_section section'>
-                        <div class='bg lazyload' data-bg="imgs/img_2.jpg">
+                        <div class='bg' style="background-image: url(imgs/img_2.jpg);">
                             <span></span>
                         </div>
                         <div class='container'>
@@ -120,7 +120,7 @@
 
                 <div class='site_slider-slide' id="events">
                     <section class='events_section section'>
-                        <div class='bg lazyload' data-bg="imgs/img_5.jpg">
+                        <div class='bg' style="background-image: url(imgs/img_5.jpg);">
                             <span></span>
                         </div>
                         <div class='container'>
@@ -224,61 +224,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- <div class='events_list'>
-                                        <div class='item'>
-                                            <h4>Скидка на день рождения 15%</h4>
-                                            <div class="text">действует в день рождения, 3 дня до и 3 дня
-                                                после (можно
-                                                воспользоваться 1 раз)</div>
-                                        </div>
-                                        <div class='item'>
-                                            <h4>Скидка навынос на основное меню 10%</h4>
-                                            <div class="text">не распространяется на продукцию бара и
-                                                специальные
-                                                предложения</div>
-                                        </div>
-                                        <div class='item'>
-                                            <h4>Масленица</h4>
-                                            <div class="text">С 24 февраля по 2 марта будет действовать
-                                                дополнительное
-                                                праздничное
-                                                меню.</div>
-                                            <div class="date">25.02.2025</div>
-                                        </div>
-                                        <div class='item'>
-                                            <h4>Обеденная скидка на основное меню 15%</h4>
-                                            <div class="text">пн-пт с 12:00 до 16:00</div>
-                                        </div>
-                                        <div class='item'>
-                                            <h4>Скидка на день рождения 15%</h4>
-                                            <div class="text">действует в день рождения, 3 дня до и 3 дня
-                                                после (можно
-                                                воспользоваться 1 раз)</div>
-                                        </div>
-                                        <div class='item'>
-                                            <h4>Скидка навынос на основное меню 10%</h4>
-                                            <div class="text">не распространяется на продукцию бара и
-                                                специальные
-                                                предложения</div>
-                                        </div>
-                                        <div class='item'>
-                                            <h4>Обеденная скидка на основное меню 15%</h4>
-                                            <div class="text">пн-пт с 12:00 до 16:00</div>
-                                        </div>
-                                        <div class='item'>
-                                            <h4>Скидка на день рождения 15%</h4>
-                                            <div class="text">действует в день рождения, 3 дня до и 3 дня
-                                                после (можно
-                                                воспользоваться 1 раз)</div>
-                                        </div>
-                                        <div class='item'>
-                                            <h4>Скидка навынос на основное меню 10%</h4>
-                                            <div class="text">не распространяется на продукцию бара и
-                                                специальные
-                                                предложения</div>
-                                        </div>
-                                    </div> -->
-
                                 </div>
                             </div>
                         </div>
@@ -287,7 +232,7 @@
 
                 <div class='site_slider-slide' id="menu">
                     <section class='menu_section section'>
-                        <div class='bg  lazyload' data-bg="imgs/img_3.jpg">
+                        <div class='bg' style="background-image: url(imgs/img_3.jpg);">
                             <span></span>
                         </div>
                         <div class='container'>
@@ -373,7 +318,7 @@
 
                 <div class='site_slider-slide' id="contacts">
                     <section class='contacts_section section'>
-                        <div class='bg  lazyload' data-bg="imgs/img_4.jpg">
+                        <div class='bg' style="background-image: url(imgs/img_4.jpg);">
                             <span></span>
                         </div>
                         <div class='container'>
@@ -415,20 +360,11 @@
         </div>
     </footer>
     <script src="vendors/lazysizes/lazysizes.min.js"></script>
-    <script>
-        document.addEventListener('lazybeforeunveil', function (e) {
-            var bg = e.target.getAttribute('data-bg');
-            if (bg) {
-                e.target.style.backgroundImage = 'url(' + bg + ')';
-            }
-        });
-    </script>
-
     <script src="vendors/jquery/jquery-3.5.1.min.js"></script>
     <script src="vendors/animate/aos.min.js"></script>
     <script src="vendors/plyr/plyr.polyfilled.js"></script>
     <script src="vendors/swiper/swiper-bundle.min.js"></script>
-    <script src="js/common.js?8"></script>
+    <script src="js/common.js?9"></script>
 </body>
 
 </html>

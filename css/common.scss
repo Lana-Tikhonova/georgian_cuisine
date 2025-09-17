@@ -964,7 +964,6 @@ ul {
     margin-left: -29px;
     display: flex;
     align-items: center;
-    min-width: 58px;
     position: relative;
 }
 
@@ -972,6 +971,17 @@ ul {
     width: 58px;
     height: auto;
     flex: 0 0 auto;
+}
+
+@media screen and (max-width:576px) {
+    .marker_wrapper {
+        margin-top: -50px;
+        margin-left: -16px;
+    }
+
+    .my-marker {
+        width: 34px;
+    }
 }
 
 // footer
