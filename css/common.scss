@@ -964,6 +964,7 @@ ul {
     margin-left: -29px;
     display: flex;
     align-items: center;
+    min-width: 58px;
     position: relative;
 }
 
@@ -977,6 +978,7 @@ ul {
     .marker_wrapper {
         margin-top: -50px;
         margin-left: -16px;
+        min-width: 34px;
     }
 
     .my-marker {
@@ -1786,6 +1788,6 @@ ul {
     }
 
     .map {
-        height: 160px;
+        height: 200px;
     }
 }
