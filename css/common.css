@@ -7,20 +7,20 @@
 }
 
 @font-face {
-  font-family: "C059";
+  font-family: "CenturySchoolbook";
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url(../fonts/C059-Bold.woff2) format("woff2");
-  src: url(../fonts/C059-Bold.woff) format("woff");
+  src: url(../fonts/CenturySchoolbook-Bold.woff2) format("woff2");
+  src: url(../fonts/CenturySchoolbook-Bold.woff) format("woff");
 }
 @font-face {
-  font-family: "C059";
+  font-family: "CenturySchoolbook";
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url(../fonts/C059-Roman.woff2) format("woff2");
-  src: url(../fonts/C059-Roman.woff) format("woff");
+  src: url(../fonts/CenturySchoolbook.woff2) format("woff2");
+  src: url(../fonts/CenturySchoolbook.woff) format("woff");
 }
 @font-face {
   font-family: "Montserrat";
@@ -69,7 +69,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "C059";
+  font-family: "CenturySchoolbook";
   color: #D0B48C;
   margin: 0;
   font-size: 46px;
@@ -289,7 +289,7 @@ ul {
   font-style: normal;
   font-weight: 700;
   line-height: 100%;
-  font-family: "C059";
+  font-family: "CenturySchoolbook";
   width: -moz-fit-content;
   width: fit-content;
 }
@@ -435,7 +435,7 @@ ul {
 }
 .menu a {
   color: #D0B48C;
-  font-family: "C059";
+  font-family: "CenturySchoolbook";
   font-size: 18px;
   font-style: normal;
   font-weight: 400;
@@ -580,7 +580,7 @@ ul {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: "C059";
+  font-family: "CenturySchoolbook";
   font-size: 26px;
   font-style: normal;
   font-weight: 400;
@@ -746,7 +746,7 @@ ul {
 }
 
 :root {
-  --plyr-color-main: #D0B48C;
+  --plyr-color-main: $color_title;
 }
 
 .player_video_wrapper {
@@ -1008,7 +1008,7 @@ ul {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-family: "C059";
+  font-family: "CenturySchoolbook";
   color: #E7CEAA;
   font-size: 18px;
   font-style: normal;

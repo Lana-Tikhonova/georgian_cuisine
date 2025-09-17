@@ -7,21 +7,21 @@
 }
 
 @font-face {
-    font-family: 'C059';
+    font-family: 'CenturySchoolbook';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
-    src: url(../fonts/C059-Bold.woff2) format('woff2');
-    src: url(../fonts/C059-Bold.woff) format('woff');
+    src: url(../fonts/CenturySchoolbook-Bold.woff2) format('woff2');
+    src: url(../fonts/CenturySchoolbook-Bold.woff) format('woff');
 }
 
 @font-face {
-    font-family: 'C059';
+    font-family: 'CenturySchoolbook';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-    src: url(../fonts/C059-Roman.woff2) format('woff2');
-    src: url(../fonts/C059-Roman.woff) format('woff');
+    src: url(../fonts/CenturySchoolbook.woff2) format('woff2');
+    src: url(../fonts/CenturySchoolbook.woff) format('woff');
 }
 
 @font-face {
@@ -45,6 +45,7 @@
 $color_title: #D0B48C;
 $color_text: #E7CEAA;
 $transition: all 0.3s ease;
+$font-serif: 'CenturySchoolbook';
 
 
 body {
@@ -80,7 +81,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: "C059";
+    font-family: $font-serif;
     color: $color_title;
     margin: 0;
     font-size: 46px;
@@ -103,7 +104,7 @@ h2 {
         content: '';
         display: block;
         border-radius: 2px;
-        background: #D0B48C;
+        background: $color_title;
         width: 12px;
         height: 12px;
         transform: rotate(-45deg);
@@ -177,7 +178,7 @@ ul {
         position: absolute;
 
         &:first-child {
-            border: 1px solid #D0B48C;
+            border: 1px solid $color_title;
             top: 4px;
             left: 4px;
             width: calc(100% - 8px);
@@ -192,7 +193,7 @@ ul {
             top: 0;
 
             span {
-                background: #D0B48C;
+                background: $color_title;
                 position: absolute;
 
                 &:nth-child(1),
@@ -208,7 +209,7 @@ ul {
                         position: absolute;
                         width: 28px;
                         height: 1px;
-                        background: #D0B48C;
+                        background: $color_title;
                     }
                 }
 
@@ -314,16 +315,16 @@ ul {
 
 .btn_secondary {
     border-radius: 16px;
-    border: 1px solid #D0B48C;
+    border: 1px solid $color_title;
     background: rgba(46, 13, 3, 0.40);
     backdrop-filter: blur(4.186046600341797px);
     box-shadow: none;
-    color: #E7CEAA;
+    color: $color_text;
     font-size: 18px;
     font-style: normal;
     font-weight: 700;
     line-height: 100%;
-    font-family: "C059";
+    font-family: $font-serif;
     width: fit-content;
 }
 
@@ -484,8 +485,8 @@ ul {
     }
 
     a {
-        color: #D0B48C;
-        font-family: "C059";
+        color: $color_title;
+        font-family: $font-serif;
         font-size: 18px;
         font-style: normal;
         font-weight: 400;
@@ -512,7 +513,7 @@ ul {
             bottom: -12px;
             width: 0;
             height: 1px;
-            background: #D0B48C;
+            background: $color_title;
         }
 
         &.active {
@@ -660,18 +661,18 @@ ul {
         width: calc(50% - 2px);
 
         a {
-            color: #E7CEAA;
+            color: $color_text;
             text-align: center;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: "C059";
+            font-family: $font-serif;
             font-size: 26px;
             font-style: normal;
             font-weight: 400;
             line-height: 100%;
             border-radius: 20px;
-            border: 1px solid #D0B48C;
+            border: 1px solid $color_title;
             background: rgba(46, 13, 3, 0.60);
             backdrop-filter: blur(7.5px);
             height: 175px;
@@ -844,7 +845,7 @@ ul {
 }
 
 :root {
-    --plyr-color-main: #D0B48C;
+    --plyr-color-main: $color_title;
 }
 
 .player_video_wrapper {
@@ -993,7 +994,7 @@ ul {
     background: linear-gradient(0deg, #210A03 44.71%, rgba(47, 13, 3, 0.00) 100%);
 
     .text {
-        color: #D0B48C;
+        color: $color_title;
         text-align: center;
     }
 }
@@ -1052,7 +1053,7 @@ ul {
                 bottom: 0;
                 width: 210px;
                 height: 1px;
-                background: #D0B48C;
+                background: $color_title;
             }
         }
 
@@ -1153,8 +1154,8 @@ ul {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-family: "C059";
-    color: #E7CEAA;
+    font-family: $font-serif;
+    color: $color_text;
     font-size: 18px;
     font-style: normal;
     font-weight: 700;
@@ -1406,7 +1407,7 @@ ul {
             }
 
             &:last-of-type {
-                border-top: 1px solid #D0B48C;
+                border-top: 1px solid $color_title;
                 padding-top: 32px;
                 width: 150px;
             }
@@ -1644,7 +1645,7 @@ ul {
     .events_back {
         font-size: 0;
         border-radius: 12px;
-        border: 1px solid #D0B48C;
+        border: 1px solid $color_title;
         background: rgba(46, 13, 3, 0.40);
         backdrop-filter: blur(4.2px);
         width: 56px;
