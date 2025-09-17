@@ -811,6 +811,7 @@ ul {
         .gallery_img {
             margin: auto;
             border-radius: 8px;
+            transition: border-radius 500ms ease;
         }
 
         video {

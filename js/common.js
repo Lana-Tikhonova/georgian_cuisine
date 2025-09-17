@@ -1,5 +1,4 @@
 $(document).ready(function () {
-
     // анимация
     let offset;
     if ($(window).width() > 576) {
@@ -73,6 +72,43 @@ $(document).ready(function () {
 
     });
 
+    // видео
+    const players = Array.from(document.querySelectorAll('.player_video')).map(
+        (p) =>
+            new Plyr(p, {
+                controls: [
+                    'play-large',
+                    'play',
+                    'progress',
+                    'current-time',
+                    'mute',
+                    'volume',
+                    'settings',
+                    // 'share',     
+                    // 'fullscreen', 
+                ],
+                autoplay: false,
+            })
+    );
+
+    // останавливать видео, если включили другое
+    players.forEach(player => {
+        player.on('play', function () {
+
+            players.forEach(otherPlayer => {
+                if (otherPlayer !== player && !otherPlayer.paused) {
+                    otherPlayer.pause();
+                }
+            });
+        });
+    });
+
+    $('.player_video_bg_btn').on('click', function (e) {
+        for (let index = 0; index < players.length; index++) {
+            players[index].play();
+        }
+        $(this).parent().hide();
+    });
 
     // добавляем метод прямо к инстансу
     Swiper.prototype.updatePaginationBullets = function () {
@@ -134,8 +170,19 @@ $(document).ready(function () {
             slideChange() {
                 this.updatePaginationBullets();
             },
+            slideChangeTransitionEnd: function () {
+                // Останавливаем все видео, кроме активного
+                players.forEach(player => {
+                    const slide = player.elements.container.closest(".swiper-slide");
+                    console.log(11);
+                    if (!slide.classList.contains("swiper-slide-active")) {
+                        player.pause();
+                    }
+                });
+            }
         }
     });
+
 
     let siteSlider;
     let scrollSlider;
@@ -147,7 +194,6 @@ $(document).ready(function () {
 
         if (h >= 740 && h <= 1000 && w >= 768) {
             if (!siteSlider) {
-                console.log("Запускаем site_slider");
                 siteSlider = new Swiper(".site_slider", {
                     direction: "vertical",
                     slidesPerView: 1,
@@ -172,14 +218,6 @@ $(document).ready(function () {
                             // добавляем active к текущему слайду и пункту меню
                             $(activeSlide).addClass("active");
                             $(".header_menu a[href='#" + thisId + "']").addClass("active");
-
-                            // Останавливаем все видео, кроме активного
-                            players.forEach(player => {
-                                const slide = player.elements.container.closest(".site_slider-slide");
-                                if (!slide.classList.contains("active")) {
-                                    player.pause();
-                                }
-                            });
                         },
                         slideChangeTransitionEnd: function () {
                             // убираем анимации со всех
@@ -193,12 +231,17 @@ $(document).ready(function () {
                                 .forEach(el => {
                                     el.classList.add("aos-animate");
                                 });
+
+                            // Останавливаем все видео
+                            players.forEach(player => {
+                                player.pause();
+
+                            });
                         },
                     },
                 });
             }
             if (!scrollSlider) {
-                console.log("Запускаем scrollSlider");
                 scrollSlider = new Swiper(".events_slider", {
                     direction: "vertical",
                     slidesPerView: "auto",
@@ -210,12 +253,10 @@ $(document).ready(function () {
             }
         } else {
             if (siteSlider) {
-                console.log("destroy siteSlider");
                 siteSlider.destroy(true, true);
                 siteSlider = null;
             }
             if (scrollSlider) {
-                console.log("destroy scrollSlider");
                 scrollSlider.destroy(true, true);
                 scrollSlider = null;
             }
@@ -224,30 +265,4 @@ $(document).ready(function () {
 
     initSwiper();
     window.addEventListener("resize", initSwiper);
-
-    // видео
-    const players = Array.from(document.querySelectorAll('.player_video')).map(
-        (p) =>
-            new Plyr(p, {
-                controls: [
-                    'play-large',
-                    'play',
-                    'progress',
-                    'current-time',
-                    'mute',
-                    'volume',
-                    'settings',
-                    // 'share',     
-                    // 'fullscreen', 
-                ],
-                autoplay: false,
-            })
-    );
-
-    $('.player_video_bg_btn').on('click', function (e) {
-        for (let index = 0; index < players.length; index++) {
-            players[index].play();
-        }
-        $(this).parent().hide();
-    });
 });
