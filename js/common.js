@@ -14,6 +14,7 @@ $(document).ready(function () {
         offset: offset,
     });
 
+
     $('.header_menu a,[data-anchor]').on('click', function (e) {
         e.preventDefault();
         let href = $(this).attr("href");
@@ -21,6 +22,7 @@ $(document).ready(function () {
         $('.mobile_menu').removeClass('active')
         $('body').removeClass('locked')
         $('.menu_btn').removeClass('active')
+        $('.btns_wrapper').removeClass('hidden')
 
         // если активен swiper
         if (siteSlider) {
@@ -60,6 +62,7 @@ $(document).ready(function () {
         $(this).toggleClass('active');
         $('.mobile_menu').toggleClass('active');
         $('body').toggleClass('locked');
+        $('.btns_wrapper').toggleClass('hidden')
     });
 
     $('.events_btn').on('click', function (e) {
@@ -265,4 +268,23 @@ $(document).ready(function () {
 
     initSwiper();
     window.addEventListener("resize", initSwiper);
+
+    const buttons = document.querySelector('.btns_wrapper');
+
+    window.addEventListener('scroll', () => {
+        const scrollPosition = window.scrollY + window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight;
+
+        if (scrollPosition >= documentHeight - 100) {
+            buttons.classList.add('hidden_bottom');
+        } else {
+            buttons.classList.remove('hidden_bottom');
+        }
+    });
+
+    $(".logo").bind('click', function (e) {
+        e.preventDefault();
+        $('body,html').animate({ scrollTop: 0 }, 400);
+    });
+
 });

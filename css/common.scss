@@ -1470,9 +1470,9 @@ ul {
         span {
             height: 1px;
             position: relative;
-            width: 40px;
+            width: 25px;
             transition: $transition;
-            background: transparent;
+            background: #FDD5B2;
             border-radius: 10px;
 
             &:after,
@@ -1492,12 +1492,12 @@ ul {
 
             &:after {
                 top: 8px;
-                width: 25px;
+                width: 26px;
             }
 
             &:before {
-                top: 0;
-                width: inherit;
+                top: -8px;
+                width: 26px;
             }
         }
     }
