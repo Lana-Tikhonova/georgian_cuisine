@@ -287,4 +287,89 @@ $(document).ready(function () {
         $('body,html').animate({ scrollTop: 0 }, 400);
     });
 
+    // открытие модаки 
+    // нужно только поменять значени в data-modal и data-open-modal
+    const body = document.querySelector('body');
+    const html = document.querySelector('html');
+    let getScrollWidth = () => window.innerWidth - document.documentElement.offsetWidth;
+    let browserScrollWidth = getScrollWidth();
+    document.addEventListener('click', (e) => {
+        const target = e.target;
+
+        // Открытие модалки
+        if (target.closest('[data-open-modal]')) {
+            e.preventDefault();
+            const targetId = target.closest('[data-open-modal]').dataset.openModal;
+            const selectedModal = document.querySelector(`[data-modal="${targetId}"]`);
+            selectedModal.classList.add('show');
+            html.classList.add('locked');
+            if (getScrollWidth() === 0) {
+                body.style.paddingRight = `${browserScrollWidth}px`;
+            }
+        }
+
+        // Закрытие по кнопке закрытия
+        if (target.closest('[data-modal-close]')) {
+            e.preventDefault();
+            const currentModal = target.closest('.modal');
+            if (currentModal) {
+                currentModal.classList.remove('show');
+            }
+            // Проверим, осталась ли хоть одна открытая модалка
+            if (!document.querySelector('.modal.show')) {
+                html.classList.remove('locked');
+                body.style.paddingRight = ``;
+            }
+        }
+
+        // Закрытие по клику вне .modal-content
+        if (target.closest('.modal') && !target.closest('.modal-content')) {
+            e.preventDefault();
+            const currentModal = target.closest('.modal');
+            if (currentModal) {
+                currentModal.classList.remove('show');
+            }
+            if (!document.querySelector('.modal.show')) {
+                html.classList.remove('locked');
+                body.style.paddingRight = ``;
+            }
+        }
+    });
+
+    if ($('[data-fancybox]').length) {
+
+        $.fancybox.defaults.btnTpl = {
+            download:
+                '<button data-fancybox-download class="fancybox-button fancybox-button--download" title="{{DOWNLOAD}}">' +
+                '<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.0005 5L16.0005 22" stroke-linecap="round"/><path d="M9.00049 14C13.9005 15.8462 16.0005 19.0462 16.0005 22" stroke-linecap="round"/><path d="M23.0005 14C18.1005 15.8462 16.0005 19.0462 16.0005 22" stroke-linecap="round"/><path d="M4 19V21C4 24.3137 6.68629 27 10 27H22C25.3137 27 28 24.3137 28 21V19" stroke-linecap="round"/></svg>' +
+                "</button>",
+
+            close:
+                '<button data-fancybox-close class="fancybox-button fancybox-button--close" title="{{CLOSE}}">' +
+                '<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M26.25 26.25L5.75 5.75" stroke-linecap="round"/><path d="M5.75 26.25L26.25 5.75" stroke-linecap="round"/></svg>' +
+                "</button>",
+
+            arrowLeft:
+                '<button data-fancybox-prev class="fancybox-button fancybox-button--arrow_left" title="{{PREV}}">' +
+                '<svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 8L0 8"/><path d="M8 1C6.15385 5.9 2.95385 8 0 8"/><path d="M8 15C6.15385 10.1 2.95385 8 0 8"/></svg>' +
+                '</button>',
+
+            arrowRight:
+                '<button data-fancybox-next class="fancybox-button fancybox-button--arrow_right" title="{{NEXT}}">' +
+                '<svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M-5.96046e-07 8L20 8"/><path d="M12 15C13.8462 10.1 17.0462 8 20 8"/><path d="M12 0.999999C13.8462 5.9 17.0462 8 20 8"/></svg>' +
+                '</button>'
+        };
+
+
+        $('[data-fancybox]').fancybox({
+            thumbs: false,
+            contentClick: "close",
+            mobile: {
+                clickSlide: "close"
+            },
+            buttons: ['download', 'close']
+        });
+    }
+
+
 });
