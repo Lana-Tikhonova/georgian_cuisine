@@ -606,40 +606,257 @@ $(document).ready(function () {
         }
     });
 
-    if ($('[data-fancybox]').length) {
+    // if ($('[data-fancybox]').length) {
 
-        $.fancybox.defaults.btnTpl = {
-            download:
-                '<button data-fancybox-download class="fancybox-button fancybox-button--download" title="{{DOWNLOAD}}">' +
-                '<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.0005 5L16.0005 22" stroke-linecap="round"/><path d="M9.00049 14C13.9005 15.8462 16.0005 19.0462 16.0005 22" stroke-linecap="round"/><path d="M23.0005 14C18.1005 15.8462 16.0005 19.0462 16.0005 22" stroke-linecap="round"/><path d="M4 19V21C4 24.3137 6.68629 27 10 27H22C25.3137 27 28 24.3137 28 21V19" stroke-linecap="round"/></svg>' +
-                "</button>",
+    //     $.fancybox.defaults.btnTpl = {
+    //         download:
+    //             '<button data-fancybox-download class="fancybox-button fancybox-button--download" title="{{DOWNLOAD}}">' +
+    //             '<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.0005 5L16.0005 22" stroke-linecap="round"/><path d="M9.00049 14C13.9005 15.8462 16.0005 19.0462 16.0005 22" stroke-linecap="round"/><path d="M23.0005 14C18.1005 15.8462 16.0005 19.0462 16.0005 22" stroke-linecap="round"/><path d="M4 19V21C4 24.3137 6.68629 27 10 27H22C25.3137 27 28 24.3137 28 21V19" stroke-linecap="round"/></svg>' +
+    //             "</button>",
 
-            close:
-                '<button data-fancybox-close class="fancybox-button fancybox-button--close" title="{{CLOSE}}">' +
-                '<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M26.25 26.25L5.75 5.75" stroke-linecap="round"/><path d="M5.75 26.25L26.25 5.75" stroke-linecap="round"/></svg>' +
-                "</button>",
+    //         close:
+    //             '<button data-fancybox-close class="fancybox-button fancybox-button--close" title="{{CLOSE}}">' +
+    //             '<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M26.25 26.25L5.75 5.75" stroke-linecap="round"/><path d="M5.75 26.25L26.25 5.75" stroke-linecap="round"/></svg>' +
+    //             "</button>",
 
-            arrowLeft:
-                '<button data-fancybox-prev class="fancybox-button fancybox-button--arrow_left" title="{{PREV}}">' +
-                '<svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 8L0 8"/><path d="M8 1C6.15385 5.9 2.95385 8 0 8"/><path d="M8 15C6.15385 10.1 2.95385 8 0 8"/></svg>' +
-                '</button>',
+    //         arrowLeft:
+    //             '<button data-fancybox-prev class="fancybox-button fancybox-button--arrow_left" title="{{PREV}}">' +
+    //             '<svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 8L0 8"/><path d="M8 1C6.15385 5.9 2.95385 8 0 8"/><path d="M8 15C6.15385 10.1 2.95385 8 0 8"/></svg>' +
+    //             '</button>',
 
-            arrowRight:
-                '<button data-fancybox-next class="fancybox-button fancybox-button--arrow_right" title="{{NEXT}}">' +
-                '<svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M-5.96046e-07 8L20 8"/><path d="M12 15C13.8462 10.1 17.0462 8 20 8"/><path d="M12 0.999999C13.8462 5.9 17.0462 8 20 8"/></svg>' +
-                '</button>'
-        };
+    //         arrowRight:
+    //             '<button data-fancybox-next class="fancybox-button fancybox-button--arrow_right" title="{{NEXT}}">' +
+    //             '<svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M-5.96046e-07 8L20 8"/><path d="M12 15C13.8462 10.1 17.0462 8 20 8"/><path d="M12 0.999999C13.8462 5.9 17.0462 8 20 8"/></svg>' +
+    //             '</button>'
+    //     };
 
 
-        $('[data-fancybox]').fancybox({
-            thumbs: false,
-            contentClick: "close",
-            mobile: {
-                clickSlide: "close"
-            },
-            buttons: ['download', 'close']
+    //     $('[data-fancybox]').fancybox({
+    //         thumbs: false,
+    //         contentClick: "close",
+    //         mobile: {
+    //             clickSlide: "close"
+    //         },
+    //         buttons: ['download', 'close']
+    //     });
+    // }
+
+
+
+    // function initTabsWithModalSwiper() {
+    //     const externalTabs = document.querySelectorAll('.tab_main_item');
+    //     const modal = document.querySelector('[data-modal="menuList"]');
+    //     const modalTabs = modal.querySelectorAll('.tab_modal_item');
+    //     const tabPanels = modal.querySelectorAll('.tab_panel');
+
+    //     let currentSwiper = null;
+
+    //     // --- вспомогательная функция для инициализации Swiper
+    //     function initSwiper(container) {
+    //         if (!container) return;
+    //         return new Swiper(container, {
+    //             slidesPerView: 1,
+    //             spaceBetween: 16,
+    //             navigation: {
+    //                 nextEl: container.querySelector('.swiper-button-next'),
+    //                 prevEl: container.querySelector('.swiper-button-prev'),
+    //             },
+    //             pagination: {
+    //                 el: container.querySelector('.swiper-pagination'),
+    //                 clickable: true,
+    //             },
+    //         });
+    //     }
+
+    //     // --- функция активации таба внутри модалки
+    //     function activateTab(tabIndex) {
+    //         modalTabs.forEach(btn => btn.classList.toggle('active', btn.dataset.tab === tabIndex));
+    //         tabPanels.forEach(panel => {
+    //             const isActive = panel.dataset.tabContent === tabIndex;
+    //             panel.classList.toggle('active', isActive);
+
+    //             // пересоздаём swiper только для активного таба
+    //             if (isActive) {
+    //                 if (currentSwiper) currentSwiper.destroy(true, true);
+    //                 currentSwiper = initSwiper(panel.querySelector('.tab_swiper'));
+    //             }
+    //         });
+    //     }
+
+    //     // --- клик по внешнему табу (открывает модалку и активирует нужный таб)
+    //     externalTabs.forEach(btn => {
+    //         btn.addEventListener('click', () => {
+    //             const tabIndex = btn.dataset.tab;
+    //             // ждём пока модалка откроется (анимация, рендер и т.д.)
+    //             setTimeout(() => activateTab(tabIndex), 100);
+    //         });
+    //     });
+
+    //     // --- клик по табу внутри модалки
+    //     modalTabs.forEach(btn => {
+    //         btn.addEventListener('click', () => {
+    //             const tabIndex = btn.dataset.tab;
+    //             activateTab(tabIndex);
+    //         });
+    //     });
+
+    //     // --- при закрытии модалки очищаем swiper
+    //     const closeObserver = new MutationObserver(() => {
+    //         if (!modal.classList.contains('show') && currentSwiper) {
+    //             currentSwiper.destroy(true, true);
+    //             currentSwiper = null;
+    //         }
+    //     });
+    //     closeObserver.observe(modal, { attributes: true, attributeFilter: ['class'] });
+    // }
+
+    // document.addEventListener('DOMContentLoaded', initTabsWithModalSwiper);
+
+
+    // function initTabsWithModalSwiper() {
+    //     const externalTabs = document.querySelectorAll('.tab_main_item');
+    //     const modal = document.querySelector('[data-modal="menuList"]');
+    //     if (!modal) return;
+
+    //     const modalTabs = modal.querySelectorAll('.tab_modal_item');
+    //     const tabPanels = modal.querySelectorAll('.tab_panel');
+    //     let currentSwiper = null;
+
+    //     // --- инициализация Swiper для активного таба
+    //     function initSwiper(container) {
+    //         if (!container) return;
+    //         return new Swiper(container, {
+    //             slidesPerView: 1,
+    //             spaceBetween: 16,
+    //             navigation: {
+    //                 nextEl: container.querySelector('.swiper-button-next'),
+    //                 prevEl: container.querySelector('.swiper-button-prev'),
+    //             },
+    //             pagination: {
+    //                 el: container.querySelector('.swiper-pagination'),
+    //                 clickable: true,
+    //             },
+    //         });
+    //     }
+
+    //     // --- активация нужного таба
+    //     function activateTab(tabIndex) {
+    //         modalTabs.forEach(btn => btn.classList.toggle('active', btn.dataset.tab === tabIndex));
+    //         tabPanels.forEach(panel => {
+    //             const isActive = panel.dataset.tabContent === tabIndex;
+    //             panel.classList.toggle('active', isActive);
+
+    //             if (isActive) {
+    //                 if (currentSwiper) currentSwiper.destroy(true, true);
+    //                 currentSwiper = initSwiper(panel.querySelector('.tab_swiper'));
+    //             }
+    //         });
+    //     }
+
+    //     // --- клик по внешним табам
+    //     externalTabs.forEach(btn => {
+    //         btn.addEventListener('click', e => {
+    //             e.preventDefault();
+    //             const tabIndex = btn.dataset.tab;
+    //             // ждём открытия модалки
+    //             setTimeout(() => activateTab(tabIndex), 150);
+    //         });
+    //     });
+
+    //     // --- клик по табам внутри модалки
+    //     modalTabs.forEach(btn => {
+    //         btn.addEventListener('click', () => {
+    //             const tabIndex = btn.dataset.tab;
+    //             activateTab(tabIndex);
+    //         });
+    //     });
+
+    //     // --- наблюдаем за закрытием модалки, чтобы очистить Swiper
+    //     const closeObserver = new MutationObserver(() => {
+    //         if (!modal.classList.contains('show') && currentSwiper) {
+    //             currentSwiper.destroy(true, true);
+    //             currentSwiper = null;
+    //         }
+    //     });
+    //     closeObserver.observe(modal, { attributes: true, attributeFilter: ['class'] });
+    // }
+
+    // document.addEventListener('DOMContentLoaded', initTabsWithModalSwiper);
+
+
+    function initTabsWithModalSwiper() {
+        const externalTabs = document.querySelectorAll('.tab_main_item');
+        const modal = document.querySelector('[data-modal="menuList"]');
+        if (!modal) return;
+
+        const modalTabs = modal.querySelectorAll('.tab_modal_item');
+        const tabPanels = modal.querySelectorAll('.tab_panel');
+        let currentSwiper = null;
+
+        // Функция инициализации слайдера
+        function initSwiper(container) {
+            if (!container) return;
+            return new Swiper(container, {
+                slidesPerView: 1,
+                spaceBetween: 16,
+                effect: "fade",
+                fadeEffect: {
+                    crossFade: true
+                },
+                speed: 1000,
+                navigation: {
+                    nextEl: container.querySelector('.swiper-button-next'),
+                    prevEl: container.querySelector('.swiper-button-prev'),
+                },
+                pagination: {
+                    el: container.querySelector('.swiper-pagination'),
+                    clickable: true,
+                },
+            });
+        }
+
+        // Функция активации таба
+        function activateTab(tabIndex) {
+            modalTabs.forEach(btn => btn.classList.toggle('active', btn.dataset.tab == tabIndex));
+            tabPanels.forEach(panel => {
+                const isActive = panel.dataset.tabContent == tabIndex;
+                panel.classList.toggle('active', isActive);
+
+                if (isActive) {
+                    if (currentSwiper) currentSwiper.destroy(true, true);
+                    currentSwiper = initSwiper(panel.querySelector('.tab_swiper'));
+                }
+            });
+        }
+
+        // Когда кликают по внешним табам
+        externalTabs.forEach(btn => {
+            btn.addEventListener('click', e => {
+                e.preventDefault();
+                const tabIndex = btn.dataset.tab;
+
+                // подождем пока модалка откроется (с задержкой)
+                setTimeout(() => {
+                    activateTab(tabIndex);
+                }, 100); // 100ms — можно увеличить, если есть анимация
+            });
         });
+
+        // Переключение табов внутри модалки
+        modalTabs.forEach(btn => {
+            btn.addEventListener('click', e => {
+                e.preventDefault();
+                const tabIndex = btn.dataset.tab;
+                activateTab(tabIndex);
+            });
+        });
+        activateTab('1');
+
     }
+    initTabsWithModalSwiper()
+
+
+
 
 
 });

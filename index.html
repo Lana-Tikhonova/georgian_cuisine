@@ -300,11 +300,13 @@
                             <img data-src="imgs/seashell_hand.svg" alt="" class='img_bg img_bg_1 lazyload'>
                             <div class='menu_block'>
                                 <h2 data-aos="fade-up">Меню</h2>
-                                <ul class='list_block' data-aos="fade-in">
-                                    <li><a href="imgs/menu.jpg" data-fancybox="menu">Основное меню</a></li>
-                                    <li><a href="imgs/menu.jpg" data-fancybox="menu">Сезонное меню</a></li>
-                                    <li><a href="imgs/menu.jpg" data-fancybox="menu">Барная карта</a></li>
-                                    <li><a href="imgs/menu.jpg" data-fancybox="menu">Детское меню</a></li>
+                                <ul class='list_block tabs_main' data-aos="fade-in" data-open-modal="menuList">
+                                    <li><a class='tab_main_item' href="" data-tab="1">Основное меню</a>
+                                    </li>
+                                    <li><a class='tab_main_item' href="" data-tab="2">Сезонное меню</a>
+                                    </li>
+                                    <li><a class='tab_main_item' href="" data-tab="3">Барная карта</a></li>
+                                    <li><a class='tab_main_item' href="" data-tab="4">Детское меню</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -765,6 +767,77 @@
                                 смеси говядины и свинины, приправленной специями и луком. Тесто тонкое и эластичное, а
                                 внутри — насыщенный бульон, который делает блюдо особенно вкусным и сытным</div>
                             <div class="structure">Состав: <span>тесто, фарш говяжий, фарш свиной, специи, зелень</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal_bg"></div>
+    </div>
+
+    <div class="modal menuList" data-modal="menuList">
+        <div class="modal-dialog">
+            <button type="button" class="close" data-modal-close="">
+                <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21.25 21.25L0.75 0.75" stroke="#FDD5B2" stroke-linecap="round" />
+                    <path d="M0.750001 21.25L21.25 0.75" stroke="#FDD5B2" stroke-linecap="round" />
+                </svg>
+            </button>
+            <div class="modal-content">
+                <div class="modal_body">
+                    <div class="tabs_modal">
+                        <div class='tabs_modal_top'>
+                            <div class='tabs_modal_title'>Меню</div>
+                            <div class="tabs_modal_nav">
+                                <button class="tab_modal_item" data-tab="1">Основное</button>
+                                <button class="tab_modal_item" data-tab="2">Сезонное</button>
+                                <button class="tab_modal_item" data-tab="3">Барная карта</button>
+                                <button class="tab_modal_item" data-tab="4">Детское</button>
+                            </div>
+                        </div>
+
+                        <div class="tabs_modal_content">
+                            <div class="tab_panel" data-tab-content="1">
+                                <div class="swiper tab_swiper">
+                                    <div class="swiper-wrapper">
+                                        <div class="swiper-slide"><img src="imgs/menu/Меню основное-2.png" alt=""></div>
+                                    </div>
+                                    <div class="swiper-pagination"></div>
+                                    <div class="swiper-button-prev"></div>
+                                    <div class="swiper-button-next"></div>
+                                </div>
+                            </div>
+                            <div class="tab_panel" data-tab-content="2">
+                                <div class="swiper tab_swiper">
+                                    <div class="swiper-wrapper">
+                                        <div class="swiper-slide"><img src="imgs/menu/Осеннее меню.png" alt=""></div>
+                                    </div>
+                                    <div class="swiper-pagination"></div>
+                                    <div class="swiper-button-prev"></div>
+                                    <div class="swiper-button-next"></div>
+                                </div>
+                            </div>
+                            <div class="tab_panel" data-tab-content="3">
+                                <div class="swiper tab_swiper">
+                                    <div class="swiper-wrapper">
+                                        <div class="swiper-slide"><img src="imgs/menu/Меню Бар-1.png" alt=""></div>
+                                        <div class="swiper-slide"><img src="imgs/menu/Меню Бар-2.png" alt=""></div>
+                                    </div>
+                                    <div class="swiper-pagination"></div>
+                                    <div class="swiper-button-prev"></div>
+                                    <div class="swiper-button-next"></div>
+                                </div>
+                            </div>
+                            <div class="tab_panel" data-tab-content="4">
+                                <div class="swiper tab_swiper">
+                                    <div class="swiper-wrapper">
+                                        <div class="swiper-slide"><img src="imgs/menu/Детское меню.png" alt=""></div>
+                                    </div>
+                                    <div class="swiper-pagination"></div>
+                                    <div class="swiper-button-prev"></div>
+                                    <div class="swiper-button-next"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
