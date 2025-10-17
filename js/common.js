@@ -71,6 +71,17 @@ $(document).ready(function () {
         $section.find('.block_full_btn').on('click', function () {
             $section.find('.block_small').hide();
             $section.find('.block_full').addClass('active');
+
+            if ($(this).hasClass('mobile_menu_block_full_btn')) {
+                // setTimeout(() => {
+                const $target = $section.find('.menu_list_left');
+                if ($target.length) {
+                    $('html, body').stop().animate({
+                        scrollTop: $target.offset().top - 10
+                    }, 800, 'swing');
+                }
+                // }, 100);
+            }
         });
 
         $section.find('.btn_back').on('click', function () {
@@ -191,6 +202,7 @@ $(document).ready(function () {
             }
         }
     });
+
 
     // слайдер главный, слайдер акции, слайдер меню
     // helper: найти реальный элемент, который скроллится
@@ -317,7 +329,7 @@ $(document).ready(function () {
 
                 if (Math.abs(leftMenu.scrollLeft - target) > 2) {
                     // leftMenu.scrollTo({ left: target, behavior: 'smooth' });
-                    $(leftMenu).stop().animate({ scrollLeft: target }, 300, 'swing');
+                    $(leftMenu).stop().animate({ scrollLeft: target }, 0, 'swing');
 
                 }
             }
