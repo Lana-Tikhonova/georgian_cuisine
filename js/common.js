@@ -65,15 +65,21 @@ $(document).ready(function () {
         $('.btns_wrapper').toggleClass('hidden')
     });
 
-    $('.events_btn').on('click', function (e) {
-        $('.events_block').hide()
-        $('.events_block_full').addClass('active')
-    });
-    $('.events_back').on('click', function (e) {
-        $('.events_block').show()
-        $('.events_block_full').removeClass('active')
+    $('.block_full_section').each(function () {
+        const $section = $(this);
 
+        $section.find('.block_full_btn').on('click', function () {
+            $section.find('.block_small').hide();
+            $section.find('.block_full').addClass('active');
+        });
+
+        $section.find('.btn_back').on('click', function () {
+            $section.find('.block_full').removeClass('active');
+            $section.find('.block_small').show();
+        });
     });
+
+
 
     // видео
     const players = Array.from(document.querySelectorAll('.player_video')).map(
@@ -113,6 +119,7 @@ $(document).ready(function () {
         $(this).parent().hide();
     });
 
+    // слайдер с фото
     // добавляем метод прямо к инстансу
     Swiper.prototype.updatePaginationBullets = function () {
         const bullets = this.pagination.bullets;
@@ -177,7 +184,6 @@ $(document).ready(function () {
                 // Останавливаем все видео, кроме активного
                 players.forEach(player => {
                     const slide = player.elements.container.closest(".swiper-slide");
-                    console.log(11);
                     if (!slide.classList.contains("swiper-slide-active")) {
                         player.pause();
                     }
@@ -186,25 +192,175 @@ $(document).ready(function () {
         }
     });
 
+    // слайдер главный, слайдер акции, слайдер меню
+    // helper: найти реальный элемент, который скроллится
+    function findScrollContainer() {
+        const candidates = [
+            document.querySelector('.menu_slider'),
+            document.querySelector('.menu_slider .swiper-wrapper'),
+            document.querySelector('.menu_list_wrapper'),
+            document.querySelector('.menu_list_wrap')
+        ];
+        return candidates.find(el => el && el.scrollHeight > el.clientHeight) || document.querySelector('.menu_slider');
+    }
+
+    let removeNativeTracking = null;
+
+    // переменные для хранения ссылок и обработчиков
+    let menuLinks = [];
+    let menuLinkHandlers = [];
+
+
+    // function initNativeMenuTracking() {
+    //     // const menuLinksContainer = document.querySelector('.menu_list_left');
+    //     const menuLinks = document.querySelectorAll('.menu_list_left [data-menu-anchor]');
+    //     const sections = Array.from(document.querySelectorAll('.menu_slider .menu_list'));
+    //     const container = findScrollContainer();
+
+    //     if (!container) return () => { };
+
+    //     function updateByScroll() {
+    //         const containerRect = container.getBoundingClientRect();
+    //         let best = null;
+    //         let bestVisible = 0;
+
+    //         sections.forEach(sec => {
+    //             const rect = sec.getBoundingClientRect();
+    //             const visibleTop = Math.max(rect.top, containerRect.top);
+    //             const visibleBottom = Math.min(rect.bottom, containerRect.bottom);
+    //             const visible = Math.max(0, visibleBottom - visibleTop);
+
+    //             // Выбираем тот, у которого видимая часть больше
+    //             if (visible > bestVisible) {
+    //                 bestVisible = visible;
+    //                 best = sec;
+    //             }
+    //         });
+
+
+    //         if (best) {
+    //             const id = best.id;
+    //             menuLinks.forEach(l => {
+    //                 const isActive = l.dataset.menuAnchor === id;
+    //                 l.classList.toggle('active', isActive);
+
+    //                 // если ссылка активна — прокручиваем к ней .menu_list_left
+    //                 if (isActive) {
+    //                     l.scrollIntoView({
+    //                         behavior: 'smooth',
+    //                         inline: 'center',
+    //                         block: 'nearest'
+    //                     });
+    //                 }
+    //             });
+    //         } else {
+    //             menuLinks.forEach(l => l.classList.remove('active'));
+    //         }
+
+    //     }
+
+
+    //     container.addEventListener('scroll', updateByScroll, { passive: true });
+    //     window.addEventListener('resize', updateByScroll, { passive: true });
+    //     updateByScroll();
+
+    //     // возвращаем функцию-удалитель
+    //     return () => {
+    //         container.removeEventListener('scroll', updateByScroll);
+    //         window.removeEventListener('resize', updateByScroll);
+    //     };
+    // }
+
+    function initNativeMenuTracking() {
+        const leftMenu = document.querySelector('.menu_list_left');
+        const menuLinks = leftMenu ? Array.from(leftMenu.querySelectorAll('[data-menu-anchor]')) : [];
+        const sections = Array.from(document.querySelectorAll('.menu_slider .menu_list'));
+        const container = findScrollContainer(); // как у тебя было
+
+        if (!container || !leftMenu) return () => { };
+
+
+        function updateByScroll(e) {
+            const containerRect = container.getBoundingClientRect();
+            let best = null;
+            let bestVisible = 0;
+
+            sections.forEach(sec => {
+                const rect = sec.getBoundingClientRect();
+                const visible = Math.max(0, Math.min(rect.bottom, containerRect.bottom) - Math.max(rect.top, containerRect.top));
+                if (visible > bestVisible) {
+                    bestVisible = visible;
+                    best = sec;
+                }
+            });
+
+            if (!best) {
+                menuLinks.forEach(l => l.classList.remove('active'));
+                return;
+            }
+
+            const id = best.id;
+            let activeLink = null;
+            menuLinks.forEach(l => {
+                const active = l.dataset.menuAnchor === id;
+                l.classList.toggle('active', active);
+                if (active) activeLink = l;
+            });
+
+            if (activeLink && e && e.type === 'scroll') {
+                const linkRect = activeLink.getBoundingClientRect();
+                const menuRect = leftMenu.getBoundingClientRect();
+                const delta = linkRect.left - menuRect.left;
+                const calcTarget = leftMenu.scrollLeft + delta - (leftMenu.clientWidth / 2) + (activeLink.clientWidth / 2);
+                const max = Math.max(0, leftMenu.scrollWidth - leftMenu.clientWidth);
+                const target = Math.max(0, Math.min(Math.round(calcTarget), max));
+
+                if (Math.abs(leftMenu.scrollLeft - target) > 2) {
+                    // leftMenu.scrollTo({ left: target, behavior: 'smooth' });
+                    $(leftMenu).stop().animate({ scrollLeft: target }, 300, 'swing');
+
+                }
+            }
+
+        }
+
+        const onScroll = (e) => updateByScroll(e);
+        container.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', () => updateByScroll(), { passive: true });
+
+        // первый вызов — только подсветка без прокрутки
+        updateByScroll();
+
+        return () => {
+            container.removeEventListener('scroll', onScroll);
+            window.removeEventListener('resize', updateByScroll);
+        };
+    }
+
+
 
     let siteSlider;
+    let scrollSliderEvent;
     let scrollSlider;
+
+    const disableMousewheelTemporarily = (delay = 700) => {
+        siteSlider.mousewheel.disable();
+        setTimeout(() => siteSlider.mousewheel.enable(), delay);
+    };
 
     function initSwiper() {
         const h = window.innerHeight;
         const w = window.innerWidth;
-        console.log(window.innerHeight);
 
-        if (h >= 740 && h <= 1000 && w >= 768) {
+        if (h >= 740 && h <= 1000 && w >= 1001) {
+            if (removeNativeTracking) { removeNativeTracking(); removeNativeTracking = null; }
+
             if (!siteSlider) {
                 siteSlider = new Swiper(".site_slider", {
                     direction: "vertical",
                     slidesPerView: 1,
                     spaceBetween: 0,
-                    // mousewheel: true,
-                    mousewheel: {
-                        releaseOnEdges: true,
-                    },
+                    mousewheel: { releaseOnEdges: true },
                     speed: 700,
                     wrapperClass: "site_slider-wrapper",
                     slideClass: "site_slider-slide",
@@ -213,51 +369,148 @@ $(document).ready(function () {
                         slideChange: function () {
                             const activeSlide = this.slides[this.activeIndex];
                             const thisId = activeSlide.getAttribute("id");
-
-                            // убираем active у всех
                             $(".site_slider-slide").removeClass("active");
                             $(".header_menu a").removeClass("active");
-
-                            // добавляем active к текущему слайду и пункту меню
                             $(activeSlide).addClass("active");
                             $(".header_menu a[href='#" + thisId + "']").addClass("active");
                         },
                         slideChangeTransitionEnd: function () {
-                            // убираем анимации со всех
-                            document.querySelectorAll(".swiper-slide [data-aos]").forEach(el => {
-                                el.classList.remove("aos-animate");
-                            });
-
-                            // добавляем только в активном слайде
-                            this.slides[this.activeIndex]
-                                .querySelectorAll("[data-aos]")
-                                .forEach(el => {
-                                    el.classList.add("aos-animate");
-                                });
-
-                            // Останавливаем все видео
-                            players.forEach(player => {
-                                player.pause();
-
-                            });
+                            document.querySelectorAll(".swiper-slide [data-aos]").forEach(el => el.classList.remove("aos-animate"));
+                            this.slides[this.activeIndex].querySelectorAll("[data-aos]").forEach(el => el.classList.add("aos-animate"));
+                            players.forEach(player => player.pause());
                         },
                     },
                 });
             }
-            if (!scrollSlider) {
-                scrollSlider = new Swiper(".events_slider", {
+
+            if (!scrollSliderEvent) {
+                scrollSliderEvent = new Swiper(".events_slider", {
                     direction: "vertical",
                     slidesPerView: "auto",
                     freeMode: true,
                     mousewheel: true,
                     nested: true,
+                    on: {
+                        reachEnd() { disableMousewheelTemporarily(500); },
+                        reachBeginning() { disableMousewheelTemporarily(500); },
+                    },
+                });
+            }
+
+            if (!scrollSlider) {
+                scrollSlider = new Swiper(".menu_slider", {
+                    direction: "vertical",
+                    slidesPerView: "auto",
+                    freeMode: true,
+                    mousewheel: { releaseOnEdges: false },
+                    nested: true,
+                    on: {
+                        reachEnd() { disableMousewheelTemporarily(1000); },
+                        reachBeginning() { disableMousewheelTemporarily(500); },
+                    },
                 });
 
+                const sections = Array.from(document.querySelectorAll('.menu_list'));
+                const swiperContainer = document.querySelector('.menu_slider');
+
+                function updateActiveByVisibility() {
+                    if (!swiperContainer) return;
+                    const containerRect = swiperContainer.getBoundingClientRect();
+                    let best = null;
+                    let bestVisible = 0;
+
+                    sections.forEach(sec => {
+                        const rect = sec.getBoundingClientRect();
+                        const top = Math.max(rect.top, containerRect.top);
+                        const bottom = Math.min(rect.bottom, containerRect.bottom);
+                        const visible = Math.max(0, bottom - top);
+                        if (visible > bestVisible) {
+                            bestVisible = visible;
+                            best = sec;
+                        }
+                    });
+
+                    const isAtBottom = Math.abs(swiperContainer.scrollHeight - swiperContainer.scrollTop - swiperContainer.clientHeight) < 2;
+                    if (isAtBottom) best = sections[sections.length - 1];
+
+                    if (best) {
+                        const id = best.id;
+                        menuLinks.forEach(l => l.classList.toggle('active', l.dataset.menuAnchor === id));
+                    }
+                }
+
+                scrollSlider.on('setTranslate', () => updateActiveByVisibility());
+                updateActiveByVisibility();
+
+                // навешиваем обработчики кликов (и запоминаем)
+                menuLinks = Array.from(document.querySelectorAll('.menu_list_left [data-menu-anchor]'));
+                menuLinkHandlers = [];
+
+                menuLinks.forEach(link => {
+                    const handler = (e) => {
+                        e.preventDefault();
+                        const targetId = link.dataset.menuAnchor;
+                        const targetSlide = document.querySelector(`.menu_list#${targetId}`);
+                        if (!targetSlide) return;
+
+                        if (scrollSlider && typeof scrollSlider.slideTo === 'function') {
+                            const slideIndex = Array.from(document.querySelectorAll('.menu_slider .swiper-slide'))
+                                .findIndex(slide => slide.contains(targetSlide));
+                            if (slideIndex !== -1) scrollSlider.slideTo(slideIndex);
+                        }
+
+                        menuLinks.forEach(l => l.classList.remove('active'));
+                        link.classList.add('active');
+                    };
+
+                    menuLinkHandlers.push(handler);
+                    link.addEventListener('click', handler);
+                });
             }
         } else {
+            // при выключении слайдеров
+            if (!removeNativeTracking) removeNativeTracking = initNativeMenuTracking();
+
+            // удаляем обработчики кликов
+            if (menuLinks.length && menuLinkHandlers.length) {
+                menuLinks.forEach((link, i) => {
+                    const handler = menuLinkHandlers[i];
+                    if (handler) link.removeEventListener('click', handler);
+                });
+                menuLinks = [];
+                menuLinkHandlers = [];
+            }
+
+            // Добавляем новые клики для нативного режима
+            const container = document.querySelector('.menu_slider');
+            const nativeLinks = document.querySelectorAll('.menu_list_left [data-menu-anchor]');
+            nativeLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const id = link.dataset.menuAnchor;
+                    const target = document.getElementById(id);
+                    if (!target) return;
+
+                    // Находим позицию элемента относительно контейнера
+                    const containerRect = container.getBoundingClientRect();
+                    const targetRect = target.getBoundingClientRect();
+                    const offset = targetRect.top - containerRect.top + container.scrollTop;
+
+                    // Плавный скролл внутри контейнера
+                    container.scrollTo({
+                        top: offset,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
             if (siteSlider) {
                 siteSlider.destroy(true, true);
                 siteSlider = null;
+            }
+            if (scrollSliderEvent) {
+                scrollSliderEvent.destroy(true, true);
+                scrollSliderEvent = null;
             }
             if (scrollSlider) {
                 scrollSlider.destroy(true, true);
@@ -269,8 +522,12 @@ $(document).ready(function () {
     initSwiper();
     window.addEventListener("resize", initSwiper);
 
-    const buttons = document.querySelector('.btns_wrapper');
 
+
+
+
+    // кнопки фиксированные
+    const buttons = document.querySelector('.btns_wrapper');
     window.addEventListener('scroll', () => {
         const scrollPosition = window.scrollY + window.innerHeight;
         const documentHeight = document.documentElement.scrollHeight;
@@ -282,6 +539,7 @@ $(document).ready(function () {
         }
     });
 
+    // прокрутка к верху страницы
     $(".logo").bind('click', function (e) {
         e.preventDefault();
         $('body,html').animate({ scrollTop: 0 }, 400);
