@@ -324,6 +324,7 @@ ul {
   font-family: "CenturySchoolbook";
   width: -moz-fit-content;
   width: fit-content;
+  gap: 16px;
 }
 
 .section {
@@ -2568,6 +2569,7 @@ pre {
   padding: 0 0 7px;
   border-bottom: 1px solid transparent;
   background: transparent;
+  cursor: pointer;
 }
 
 .tab_modal_item.active {
@@ -2584,6 +2586,14 @@ pre {
   overflow: initial;
   /* padding: 0 92px 30px; */
   padding-bottom: 30px;
+}
+
+.tab_swiper .swiper-pagination-bullet {
+  background: #D0B48C;
+}
+
+.tab_swiper .swiper-pagination-bullet-active {
+  background: #FDD5B2;
 }
 
 .tab_swiper .swiper-button-next,
@@ -2631,6 +2641,30 @@ pre {
   object-fit: contain;
 }
 
+.menuList_btns {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  gap: 10px;
+  top: 24px;
+  right: 24px;
+}
+
+.menuList_btns .close {
+  position: relative;
+  top: initial;
+  right: initial;
+}
+
+.download_btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+}
+
 @media screen and (max-width:1500px) {
   .menuList .modal-content {
     max-width: 470px;
@@ -2662,5 +2696,13 @@ pre {
 
   .tabs_modal_nav::-webkit-scrollbar {
     display: none;
+  }
+
+  .menuList .modal-content {
+    padding-top: 30px;
+  }
+
+  .menuList_btns {
+    right: 10px;
   }
 }

@@ -73,14 +73,12 @@ $(document).ready(function () {
             $section.find('.block_full').addClass('active');
 
             if ($(this).hasClass('mobile_menu_block_full_btn')) {
-                // setTimeout(() => {
                 const $target = $section.find('.menu_list_left');
                 if ($target.length) {
                     $('html, body').stop().animate({
                         scrollTop: $target.offset().top - 10
                     }, 800, 'swing');
                 }
-                // }, 100);
             }
         });
 
@@ -205,7 +203,6 @@ $(document).ready(function () {
 
 
     // слайдер главный, слайдер акции, слайдер меню
-    // helper: найти реальный элемент, который скроллится
     function findScrollContainer() {
         const candidates = [
             document.querySelector('.menu_slider'),
@@ -222,72 +219,32 @@ $(document).ready(function () {
     let menuLinks = [];
     let menuLinkHandlers = [];
 
+    let scrollAnimation = null;
+    let lastTarget = 0;
 
-    // function initNativeMenuTracking() {
-    //     // const menuLinksContainer = document.querySelector('.menu_list_left');
-    //     const menuLinks = document.querySelectorAll('.menu_list_left [data-menu-anchor]');
-    //     const sections = Array.from(document.querySelectorAll('.menu_slider .menu_list'));
-    //     const container = findScrollContainer();
+    function smoothScrollTo(element, target, duration = 300) {
+        if (scrollAnimation) cancelAnimationFrame(scrollAnimation);
+        const start = element.scrollLeft;
+        const change = target - start;
+        const startTime = performance.now();
 
-    //     if (!container) return () => { };
+        function animate(time) {
+            const elapsed = time - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = 0.5 - Math.cos(progress * Math.PI) / 2; // easeInOut
+            element.scrollLeft = start + change * eased;
+            if (progress < 1) scrollAnimation = requestAnimationFrame(animate);
+        }
 
-    //     function updateByScroll() {
-    //         const containerRect = container.getBoundingClientRect();
-    //         let best = null;
-    //         let bestVisible = 0;
+        scrollAnimation = requestAnimationFrame(animate);
+    }
 
-    //         sections.forEach(sec => {
-    //             const rect = sec.getBoundingClientRect();
-    //             const visibleTop = Math.max(rect.top, containerRect.top);
-    //             const visibleBottom = Math.min(rect.bottom, containerRect.bottom);
-    //             const visible = Math.max(0, visibleBottom - visibleTop);
-
-    //             // Выбираем тот, у которого видимая часть больше
-    //             if (visible > bestVisible) {
-    //                 bestVisible = visible;
-    //                 best = sec;
-    //             }
-    //         });
-
-
-    //         if (best) {
-    //             const id = best.id;
-    //             menuLinks.forEach(l => {
-    //                 const isActive = l.dataset.menuAnchor === id;
-    //                 l.classList.toggle('active', isActive);
-
-    //                 // если ссылка активна — прокручиваем к ней .menu_list_left
-    //                 if (isActive) {
-    //                     l.scrollIntoView({
-    //                         behavior: 'smooth',
-    //                         inline: 'center',
-    //                         block: 'nearest'
-    //                     });
-    //                 }
-    //             });
-    //         } else {
-    //             menuLinks.forEach(l => l.classList.remove('active'));
-    //         }
-
-    //     }
-
-
-    //     container.addEventListener('scroll', updateByScroll, { passive: true });
-    //     window.addEventListener('resize', updateByScroll, { passive: true });
-    //     updateByScroll();
-
-    //     // возвращаем функцию-удалитель
-    //     return () => {
-    //         container.removeEventListener('scroll', updateByScroll);
-    //         window.removeEventListener('resize', updateByScroll);
-    //     };
-    // }
 
     function initNativeMenuTracking() {
         const leftMenu = document.querySelector('.menu_list_left');
         const menuLinks = leftMenu ? Array.from(leftMenu.querySelectorAll('[data-menu-anchor]')) : [];
         const sections = Array.from(document.querySelectorAll('.menu_slider .menu_list'));
-        const container = findScrollContainer(); // как у тебя было
+        const container = findScrollContainer();
 
         if (!container || !leftMenu) return () => { };
 
@@ -327,11 +284,17 @@ $(document).ready(function () {
                 const max = Math.max(0, leftMenu.scrollWidth - leftMenu.clientWidth);
                 const target = Math.max(0, Math.min(Math.round(calcTarget), max));
 
-                if (Math.abs(leftMenu.scrollLeft - target) > 2) {
-                    // leftMenu.scrollTo({ left: target, behavior: 'smooth' });
-                    $(leftMenu).stop().animate({ scrollLeft: target }, 0, 'swing');
+                // if (Math.abs(leftMenu.scrollLeft - target) > 2) {
+                //     // leftMenu.scrollTo({ left: target, behavior: 'smooth' });
+                //     $(leftMenu).animate({ scrollLeft: target }, 300);
 
+                // }
+
+                if (Math.abs(leftMenu.scrollLeft - target) > 2 && target !== lastTarget) {
+                    lastTarget = target;
+                    smoothScrollTo(leftMenu, target, 400);
                 }
+
             }
 
         }
@@ -348,7 +311,6 @@ $(document).ready(function () {
             window.removeEventListener('resize', updateByScroll);
         };
     }
-
 
 
     let siteSlider;
@@ -606,183 +568,6 @@ $(document).ready(function () {
         }
     });
 
-    // if ($('[data-fancybox]').length) {
-
-    //     $.fancybox.defaults.btnTpl = {
-    //         download:
-    //             '<button data-fancybox-download class="fancybox-button fancybox-button--download" title="{{DOWNLOAD}}">' +
-    //             '<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.0005 5L16.0005 22" stroke-linecap="round"/><path d="M9.00049 14C13.9005 15.8462 16.0005 19.0462 16.0005 22" stroke-linecap="round"/><path d="M23.0005 14C18.1005 15.8462 16.0005 19.0462 16.0005 22" stroke-linecap="round"/><path d="M4 19V21C4 24.3137 6.68629 27 10 27H22C25.3137 27 28 24.3137 28 21V19" stroke-linecap="round"/></svg>' +
-    //             "</button>",
-
-    //         close:
-    //             '<button data-fancybox-close class="fancybox-button fancybox-button--close" title="{{CLOSE}}">' +
-    //             '<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M26.25 26.25L5.75 5.75" stroke-linecap="round"/><path d="M5.75 26.25L26.25 5.75" stroke-linecap="round"/></svg>' +
-    //             "</button>",
-
-    //         arrowLeft:
-    //             '<button data-fancybox-prev class="fancybox-button fancybox-button--arrow_left" title="{{PREV}}">' +
-    //             '<svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 8L0 8"/><path d="M8 1C6.15385 5.9 2.95385 8 0 8"/><path d="M8 15C6.15385 10.1 2.95385 8 0 8"/></svg>' +
-    //             '</button>',
-
-    //         arrowRight:
-    //             '<button data-fancybox-next class="fancybox-button fancybox-button--arrow_right" title="{{NEXT}}">' +
-    //             '<svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M-5.96046e-07 8L20 8"/><path d="M12 15C13.8462 10.1 17.0462 8 20 8"/><path d="M12 0.999999C13.8462 5.9 17.0462 8 20 8"/></svg>' +
-    //             '</button>'
-    //     };
-
-
-    //     $('[data-fancybox]').fancybox({
-    //         thumbs: false,
-    //         contentClick: "close",
-    //         mobile: {
-    //             clickSlide: "close"
-    //         },
-    //         buttons: ['download', 'close']
-    //     });
-    // }
-
-
-
-    // function initTabsWithModalSwiper() {
-    //     const externalTabs = document.querySelectorAll('.tab_main_item');
-    //     const modal = document.querySelector('[data-modal="menuList"]');
-    //     const modalTabs = modal.querySelectorAll('.tab_modal_item');
-    //     const tabPanels = modal.querySelectorAll('.tab_panel');
-
-    //     let currentSwiper = null;
-
-    //     // --- вспомогательная функция для инициализации Swiper
-    //     function initSwiper(container) {
-    //         if (!container) return;
-    //         return new Swiper(container, {
-    //             slidesPerView: 1,
-    //             spaceBetween: 16,
-    //             navigation: {
-    //                 nextEl: container.querySelector('.swiper-button-next'),
-    //                 prevEl: container.querySelector('.swiper-button-prev'),
-    //             },
-    //             pagination: {
-    //                 el: container.querySelector('.swiper-pagination'),
-    //                 clickable: true,
-    //             },
-    //         });
-    //     }
-
-    //     // --- функция активации таба внутри модалки
-    //     function activateTab(tabIndex) {
-    //         modalTabs.forEach(btn => btn.classList.toggle('active', btn.dataset.tab === tabIndex));
-    //         tabPanels.forEach(panel => {
-    //             const isActive = panel.dataset.tabContent === tabIndex;
-    //             panel.classList.toggle('active', isActive);
-
-    //             // пересоздаём swiper только для активного таба
-    //             if (isActive) {
-    //                 if (currentSwiper) currentSwiper.destroy(true, true);
-    //                 currentSwiper = initSwiper(panel.querySelector('.tab_swiper'));
-    //             }
-    //         });
-    //     }
-
-    //     // --- клик по внешнему табу (открывает модалку и активирует нужный таб)
-    //     externalTabs.forEach(btn => {
-    //         btn.addEventListener('click', () => {
-    //             const tabIndex = btn.dataset.tab;
-    //             // ждём пока модалка откроется (анимация, рендер и т.д.)
-    //             setTimeout(() => activateTab(tabIndex), 100);
-    //         });
-    //     });
-
-    //     // --- клик по табу внутри модалки
-    //     modalTabs.forEach(btn => {
-    //         btn.addEventListener('click', () => {
-    //             const tabIndex = btn.dataset.tab;
-    //             activateTab(tabIndex);
-    //         });
-    //     });
-
-    //     // --- при закрытии модалки очищаем swiper
-    //     const closeObserver = new MutationObserver(() => {
-    //         if (!modal.classList.contains('show') && currentSwiper) {
-    //             currentSwiper.destroy(true, true);
-    //             currentSwiper = null;
-    //         }
-    //     });
-    //     closeObserver.observe(modal, { attributes: true, attributeFilter: ['class'] });
-    // }
-
-    // document.addEventListener('DOMContentLoaded', initTabsWithModalSwiper);
-
-
-    // function initTabsWithModalSwiper() {
-    //     const externalTabs = document.querySelectorAll('.tab_main_item');
-    //     const modal = document.querySelector('[data-modal="menuList"]');
-    //     if (!modal) return;
-
-    //     const modalTabs = modal.querySelectorAll('.tab_modal_item');
-    //     const tabPanels = modal.querySelectorAll('.tab_panel');
-    //     let currentSwiper = null;
-
-    //     // --- инициализация Swiper для активного таба
-    //     function initSwiper(container) {
-    //         if (!container) return;
-    //         return new Swiper(container, {
-    //             slidesPerView: 1,
-    //             spaceBetween: 16,
-    //             navigation: {
-    //                 nextEl: container.querySelector('.swiper-button-next'),
-    //                 prevEl: container.querySelector('.swiper-button-prev'),
-    //             },
-    //             pagination: {
-    //                 el: container.querySelector('.swiper-pagination'),
-    //                 clickable: true,
-    //             },
-    //         });
-    //     }
-
-    //     // --- активация нужного таба
-    //     function activateTab(tabIndex) {
-    //         modalTabs.forEach(btn => btn.classList.toggle('active', btn.dataset.tab === tabIndex));
-    //         tabPanels.forEach(panel => {
-    //             const isActive = panel.dataset.tabContent === tabIndex;
-    //             panel.classList.toggle('active', isActive);
-
-    //             if (isActive) {
-    //                 if (currentSwiper) currentSwiper.destroy(true, true);
-    //                 currentSwiper = initSwiper(panel.querySelector('.tab_swiper'));
-    //             }
-    //         });
-    //     }
-
-    //     // --- клик по внешним табам
-    //     externalTabs.forEach(btn => {
-    //         btn.addEventListener('click', e => {
-    //             e.preventDefault();
-    //             const tabIndex = btn.dataset.tab;
-    //             // ждём открытия модалки
-    //             setTimeout(() => activateTab(tabIndex), 150);
-    //         });
-    //     });
-
-    //     // --- клик по табам внутри модалки
-    //     modalTabs.forEach(btn => {
-    //         btn.addEventListener('click', () => {
-    //             const tabIndex = btn.dataset.tab;
-    //             activateTab(tabIndex);
-    //         });
-    //     });
-
-    //     // --- наблюдаем за закрытием модалки, чтобы очистить Swiper
-    //     const closeObserver = new MutationObserver(() => {
-    //         if (!modal.classList.contains('show') && currentSwiper) {
-    //             currentSwiper.destroy(true, true);
-    //             currentSwiper = null;
-    //         }
-    //     });
-    //     closeObserver.observe(modal, { attributes: true, attributeFilter: ['class'] });
-    // }
-
-    // document.addEventListener('DOMContentLoaded', initTabsWithModalSwiper);
-
 
     function initTabsWithModalSwiper() {
         const externalTabs = document.querySelectorAll('.tab_main_item');
@@ -835,10 +620,9 @@ $(document).ready(function () {
                 e.preventDefault();
                 const tabIndex = btn.dataset.tab;
 
-                // подождем пока модалка откроется (с задержкой)
                 setTimeout(() => {
                     activateTab(tabIndex);
-                }, 100); // 100ms — можно увеличить, если есть анимация
+                }, 100);
             });
         });
 
