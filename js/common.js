@@ -519,55 +519,6 @@ $(document).ready(function () {
         $('body,html').animate({ scrollTop: 0 }, 400);
     });
 
-    // открытие модаки 
-    // нужно только поменять значени в data-modal и data-open-modal
-    const body = document.querySelector('body');
-    const html = document.querySelector('html');
-    let getScrollWidth = () => window.innerWidth - document.documentElement.offsetWidth;
-    let browserScrollWidth = getScrollWidth();
-    document.addEventListener('click', (e) => {
-        const target = e.target;
-
-        // Открытие модалки
-        if (target.closest('[data-open-modal]')) {
-            e.preventDefault();
-            const targetId = target.closest('[data-open-modal]').dataset.openModal;
-            const selectedModal = document.querySelector(`[data-modal="${targetId}"]`);
-            selectedModal.classList.add('show');
-            html.classList.add('locked');
-            if (getScrollWidth() === 0) {
-                body.style.paddingRight = `${browserScrollWidth}px`;
-            }
-        }
-
-        // Закрытие по кнопке закрытия
-        if (target.closest('[data-modal-close]')) {
-            e.preventDefault();
-            const currentModal = target.closest('.modal');
-            if (currentModal) {
-                currentModal.classList.remove('show');
-            }
-            // Проверим, осталась ли хоть одна открытая модалка
-            if (!document.querySelector('.modal.show')) {
-                html.classList.remove('locked');
-                body.style.paddingRight = ``;
-            }
-        }
-
-        // Закрытие по клику вне .modal-content
-        if (target.closest('.modal') && !target.closest('.modal-content')) {
-            e.preventDefault();
-            const currentModal = target.closest('.modal');
-            if (currentModal) {
-                currentModal.classList.remove('show');
-            }
-            if (!document.querySelector('.modal.show')) {
-                html.classList.remove('locked');
-                body.style.paddingRight = ``;
-            }
-        }
-    });
-
 
     function initTabsWithModalSwiper() {
         const externalTabs = document.querySelectorAll('.tab_main_item');
@@ -643,4 +594,69 @@ $(document).ready(function () {
 
 
 
+});
+
+// открытие модаки 
+// нужно только поменять значени в data-modal и data-open-modal
+
+document.addEventListener('DOMContentLoaded', () => {
+    const body = document.querySelector('body');
+    const html = document.querySelector('html');
+    let getScrollWidth = () => window.innerWidth - document.documentElement.offsetWidth;
+    let browserScrollWidth = getScrollWidth();
+
+    function openModal(modal) {
+        if (!modal) return;
+        modal.classList.add('show');
+        html.classList.add('locked');
+        if (getScrollWidth() === 0) {
+            body.style.paddingRight = `${browserScrollWidth}px`;
+        }
+    }
+
+    function closeModal(modal) {
+        if (!modal) return;
+        modal.classList.remove('show');
+        if (!document.querySelector('.modal.show')) {
+            html.classList.remove('locked');
+            body.style.paddingRight = ``;
+            history.pushState(null, '', window.location.pathname);
+        }
+    }
+
+    document.addEventListener('click', (e) => {
+        const target = e.target;
+
+        // Открытие
+        const trigger = target.closest('[data-open-modal]');
+        if (trigger) {
+            e.preventDefault();
+            const modalId = trigger.dataset.openModal;
+            const modal = document.querySelector(`[data-modal="${modalId}"]`);
+            openModal(modal);
+
+            // меняем адрес
+            const hash = trigger.getAttribute('href')?.split('#')[1];
+            if (hash) history.pushState(null, '', `#${hash}`);
+        }
+
+        // Закрытие
+        if (target.closest('[data-modal-close]')) {
+            e.preventDefault();
+            closeModal(target.closest('.modal'));
+        }
+
+        // Клик вне контента
+        if (target.closest('.modal') && !target.closest('.modal-content')) {
+            e.preventDefault();
+            closeModal(target.closest('.modal'));
+        }
+    });
+
+    // Открытие при переходе с хэшем
+    const hash = window.location.hash.slice(1);
+    if (hash) {
+        const modal = document.querySelector(`[data-modal="${hash}"]`);
+        if (modal) openModal(modal);
+    }
 });
