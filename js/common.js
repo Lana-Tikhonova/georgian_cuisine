@@ -526,13 +526,16 @@ $(document).ready(function () {
         if (!modal) return;
 
         const modalTabs = modal.querySelectorAll('.tab_modal_item');
-        const tabPanels = modal.querySelectorAll('.tab_panel');
-        let currentSwiper = null;
+        // const tabPanels = modal.querySelectorAll('.tab_panel');
+        // let currentSwiper = null;
 
         // Функция инициализации слайдера
-        function initSwiper(container) {
-            if (!container) return;
-            return new Swiper(container, {
+        function initMenuSwiper(container) {
+            const nextArrow = container.querySelector('.swiper-button-next');
+            const prevArrow = container.querySelector('.swiper-button-prev');
+
+            // if (!container) return;
+            const menuSlider = new Swiper(container, {
                 slidesPerView: 1,
                 spaceBetween: 16,
                 effect: "fade",
@@ -541,28 +544,41 @@ $(document).ready(function () {
                 },
                 speed: 1000,
                 navigation: {
-                    nextEl: container.querySelector('.swiper-button-next'),
-                    prevEl: container.querySelector('.swiper-button-prev'),
+                    nextEl: nextArrow,
+                    prevEl: prevArrow,
+
                 },
                 pagination: {
                     el: container.querySelector('.swiper-pagination'),
                     clickable: true,
                 },
+                on: {
+                    slideChange(slider) {
+                        const currentSlide = slider.slides[slider.activeIndex];
+                        const currentSlideType = currentSlide.getAttribute('data-slide-type');
+                        activateTab(currentSlideType, true);
+                        // modalTabs[currentSlideType - 1].click();
+                    }
+                }
+
             });
+            return menuSlider;
         }
+        const menuSlider = initMenuSwiper(document.querySelector('.tab_panel-menu .tab_swiper'));
 
         // Функция активации таба
-        function activateTab(tabIndex) {
+        function activateTab(tabIndex, inSlider) {
             modalTabs.forEach(btn => btn.classList.toggle('active', btn.dataset.tab == tabIndex));
-            tabPanels.forEach(panel => {
-                const isActive = panel.dataset.tabContent == tabIndex;
-                panel.classList.toggle('active', isActive);
+            const params = new URLSearchParams(window.location.search);
+            params.set('modal', 'menuList');
+            params.set('tab', tabIndex);
+            history.replaceState(null, '', `${window.location.pathname}?${params.toString()}`);
+            if (inSlider) return;
 
-                if (isActive) {
-                    if (currentSwiper) currentSwiper.destroy(true, true);
-                    currentSwiper = initSwiper(panel.querySelector('.tab_swiper'));
-                }
-            });
+            const cuurentSlidetypeFirstEl = menuSlider.slides.findIndex(slide => slide.getAttribute(`data-slide-type`) == tabIndex)
+
+            menuSlider.slideTo(cuurentSlidetypeFirstEl, 0)
+
         }
 
         // Когда кликают по внешним табам
@@ -571,9 +587,9 @@ $(document).ready(function () {
                 e.preventDefault();
                 const tabIndex = btn.dataset.tab;
 
-                setTimeout(() => {
-                    activateTab(tabIndex);
-                }, 100);
+                // setTimeout(() => {
+                activateTab(tabIndex);
+                // }, 100);
             });
         });
 
@@ -585,7 +601,6 @@ $(document).ready(function () {
                 activateTab(tabIndex);
             });
         });
-        activateTab('1');
 
     }
     initTabsWithModalSwiper()
@@ -681,7 +696,7 @@ document.addEventListener('DOMContentLoaded', () => {
             params.set('tab', tabId);
             history.replaceState(null, '', `${window.location.pathname}?${params.toString()}`);
 
-            // И вызываем активацию твоей функцией
+            // И вызываем активацию  функцией
             const tabPanels = modal.querySelectorAll('.tab_panel');
             tabPanels.forEach(panel => panel.classList.toggle('active', panel.dataset.tabContent === tabId));
         }
@@ -695,11 +710,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (modalId) {
         const modal = document.querySelector(`[data-modal="${modalId}"]`);
         if (modal) {
-            openModal(modal);
             setTimeout(() => {
                 // активируем нужный таб
                 const modalTab = modal.querySelector(`.tab_modal_item[data-tab="${tabId || '1'}"]`);
                 if (modalTab) modalTab.click();
+                openModal(modal);
+
             }, 300);
         }
     }
