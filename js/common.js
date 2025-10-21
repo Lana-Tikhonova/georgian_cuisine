@@ -660,3 +660,51 @@ document.addEventListener('DOMContentLoaded', () => {
         if (modal) openModal(modal);
     }
 });
+
+window.addEventListener('load', () => {
+    // Пример URL: https://995.olbuss-book.ru/?item=sideDishes&section=gallery
+    const params = new URLSearchParams(window.location.search);
+    const search = params.get('item');     // sideDishes
+    const section = params.get('section'); // gallery
+
+
+    // Если нет ничего — выходим
+    if (!search && !section) return;
+
+    //  если указана секция, кликаем по пункту меню
+    if (section) {
+        const link = document.querySelector(`.header_menu a[href="#${section}"]`);
+        if (link) {
+            setTimeout(() => {
+                link.click();
+            }, 300); // ждём инициализацию Swiper
+        }
+    }
+
+    // если указана галерея и есть категория
+    if (section === 'gallery' && search) {
+        const gallery = document.getElementById('gallery');
+        if (!gallery) return;
+
+        const menuBlock = gallery.querySelector('.menu_block_full');
+        const btnFull = gallery.querySelector('.menu_full_btn');
+
+        // Открываем меню, если не активно
+        if (menuBlock && !menuBlock.classList.contains('active') && btnFull) {
+            setTimeout(() => {
+                btnFull.click();
+            }, 0);
+        }
+
+        // После открытия кликаем по нужной категории
+        setTimeout(() => {
+            const link = gallery.querySelector(`.menu_list_left [data-menu-anchor="${search}"]`);
+            if (link) {
+                console.log('[special] auto-click on', link);
+                link.click();
+            } else {
+                console.log('[special] link not found for', search);
+            }
+        }, 700);
+    }
+});
