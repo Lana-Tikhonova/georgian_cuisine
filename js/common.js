@@ -72,14 +72,14 @@ $(document).ready(function () {
             $section.find('.block_small').hide();
             $section.find('.block_full').addClass('active');
 
-            if ($(this).hasClass('mobile_menu_block_full_btn')) {
-                const $target = $section.find('.menu_list_left');
-                if ($target.length) {
-                    $('html, body').stop().animate({
-                        scrollTop: $target.offset().top - 10
-                    }, 800, 'swing');
-                }
-            }
+            // if ($(this).hasClass('mobile_menu_block_full_btn')) {
+            //     const $target = $section.find('.menu_list_left');
+            //     if ($target.length) {
+            //         $('html, body').stop().animate({
+            //             scrollTop: $target.offset().top - 10
+            //         }, 800, 'swing');
+            //     }
+            // }
         });
 
         $section.find('.btn_back').on('click', function () {
