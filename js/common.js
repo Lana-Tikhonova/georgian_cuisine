@@ -590,28 +590,20 @@ $(document).ready(function () {
     }
     initTabsWithModalSwiper()
 
-
-
-
-
 });
 
-// открытие модаки 
-// нужно только поменять значени в data-modal и data-open-modal
-
 document.addEventListener('DOMContentLoaded', () => {
-    const body = document.querySelector('body');
-    const html = document.querySelector('html');
-    let getScrollWidth = () => window.innerWidth - document.documentElement.offsetWidth;
-    let browserScrollWidth = getScrollWidth();
+    const body = document.body;
+    const html = document.documentElement;
+    const getScrollWidth = () => window.innerWidth - document.documentElement.offsetWidth;
+    const browserScrollWidth = getScrollWidth();
 
+    // --- базовые функции модалки ---
     function openModal(modal) {
         if (!modal) return;
         modal.classList.add('show');
         html.classList.add('locked');
-        if (getScrollWidth() === 0) {
-            body.style.paddingRight = `${browserScrollWidth}px`;
-        }
+        if (getScrollWidth() === 0) body.style.paddingRight = `${browserScrollWidth}px`;
     }
 
     function closeModal(modal) {
@@ -619,46 +611,110 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.classList.remove('show');
         if (!document.querySelector('.modal.show')) {
             html.classList.remove('locked');
-            body.style.paddingRight = ``;
+            body.style.paddingRight = '';
             history.pushState(null, '', window.location.pathname);
         }
     }
 
+    // --- обработка кликов ---
     document.addEventListener('click', (e) => {
         const target = e.target;
 
-        // Открытие
+        // --- открытие модалки ---
         const trigger = target.closest('[data-open-modal]');
         if (trigger) {
             e.preventDefault();
+
+            const tabButton = target.closest('.tab_main_item');
+            const tab = tabButton ? tabButton.dataset.tab : null;
+
             const modalId = trigger.dataset.openModal;
             const modal = document.querySelector(`[data-modal="${modalId}"]`);
+            if (!modal) return;
+
             openModal(modal);
 
-            // меняем адрес
-            const hash = trigger.getAttribute('href')?.split('#')[1];
-            if (hash) history.pushState(null, '', `#${hash}`);
+            // проверяем, есть ли внутри модалки табы
+            const hasTabs = modal.querySelector('.tab_modal_item');
+
+            // формируем параметры URL
+            const params = new URLSearchParams(window.location.search);
+            params.set('modal', modalId);
+            if (hasTabs && tab) params.set('tab', tab);
+            else params.delete('tab'); // если табов нет — убираем параметр
+
+            history.replaceState(null, '', `${window.location.pathname}?${params.toString()}`);
+
+            // если есть табы — активируем нужный
+            if (hasTabs && tab) {
+                setTimeout(() => {
+                    const modalTab = modal.querySelector(`.tab_modal_item[data-tab="${tab}"]`);
+                    if (modalTab) modalTab.click();
+                }, 150);
+            }
         }
 
-        // Закрытие
+
+        // --- закрытие ---
         if (target.closest('[data-modal-close]')) {
             e.preventDefault();
             closeModal(target.closest('.modal'));
         }
 
-        // Клик вне контента
+        // --- клик вне контента ---
         if (target.closest('.modal') && !target.closest('.modal-content')) {
             e.preventDefault();
             closeModal(target.closest('.modal'));
         }
+
+        // --- клик по табу внутри модалки ---
+        const modalTab = target.closest('.tab_modal_item');
+        if (modalTab) {
+            e.preventDefault();
+            const tabId = modalTab.dataset.tab;
+            const modal = modalTab.closest('.modal');
+            if (!modal) return;
+
+            // Обновляем URL без перезагрузки
+            const params = new URLSearchParams(window.location.search);
+            params.set('modal', modal.dataset.modal);
+            params.set('tab', tabId);
+            history.replaceState(null, '', `${window.location.pathname}?${params.toString()}`);
+
+            // И вызываем активацию твоей функцией
+            const tabPanels = modal.querySelectorAll('.tab_panel');
+            tabPanels.forEach(panel => panel.classList.toggle('active', panel.dataset.tabContent === tabId));
+        }
     });
 
-    // Открытие при переходе с хэшем
-    const hash = window.location.hash.slice(1);
-    if (hash) {
-        const modal = document.querySelector(`[data-modal="${hash}"]`);
-        if (modal) openModal(modal);
+    // --- открытие при загрузке страницы ---
+    const params = new URLSearchParams(window.location.search);
+    const modalId = params.get('modal');
+    const tabId = params.get('tab');
+
+    if (modalId) {
+        const modal = document.querySelector(`[data-modal="${modalId}"]`);
+        if (modal) {
+            openModal(modal);
+            setTimeout(() => {
+                // активируем нужный таб
+                const modalTab = modal.querySelector(`.tab_modal_item[data-tab="${tabId || '1'}"]`);
+                if (modalTab) modalTab.click();
+            }, 300);
+        }
     }
+
+    // --- обновление URL при клике в меню ---
+    const menuLinks = document.querySelectorAll('.menu_list_left [data-menu-anchor]');
+    menuLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            const item = link.dataset.menuAnchor;
+            const section = link.closest('[id]')?.id || 'gallery';
+            const newUrl = `${window.location.origin}${window.location.pathname}?section=${section}&item=${item}`;
+            history.replaceState(null, '', newUrl);
+            console.log('[menu] URL updated →', newUrl);
+        });
+    });
 });
 
 window.addEventListener('load', () => {
